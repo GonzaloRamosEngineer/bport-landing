@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { defaultLocale, translations } from "@/lib/translations";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BPORT Logistics | Conectamos tu carga con el mundo",
-  description:
-    "Logística internacional desde 2000. Transporte FCL/LCL, puerta a puerta y asesoramiento aduanero. Montevideo, Uruguay.",
+  title: translations[defaultLocale].meta.title,
+  description: translations[defaultLocale].meta.description,
 };
 
 export default function RootLayout({

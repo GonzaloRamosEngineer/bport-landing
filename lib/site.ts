@@ -1,3 +1,10 @@
+import type { Locale } from "@/lib/translations";
+import { translations } from "@/lib/translations";
+
 /** Reemplazá el número por el WhatsApp corporativo (código país + número sin +). */
-export const WHATSAPP_URL =
-  "https://wa.me/59800000000?text=Hola%20BPORT%20Logistics%2C%20quiero%20consultar%20por%20mis%20env%C3%ADos.";
+const WHATSAPP_PHONE = "59800000000";
+
+export function getWhatsAppUrl(locale: Locale): string {
+  const text = translations[locale].whatsappPrefill;
+  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+}

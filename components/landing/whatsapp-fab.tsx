@@ -3,7 +3,8 @@
 import { MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { WHATSAPP_URL } from "@/lib/site";
+import { useLanguage } from "@/components/i18n/language-context";
+import { getWhatsAppUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type WhatsAppFabProps = {
@@ -11,6 +12,8 @@ type WhatsAppFabProps = {
 };
 
 export function WhatsAppFab({ className }: WhatsAppFabProps) {
+  const { locale, t } = useLanguage();
+
   return (
     <motion.div
       className={cn("fixed bottom-6 right-6 z-50 md:bottom-8 md:right-8", className)}
@@ -19,7 +22,7 @@ export function WhatsAppFab({ className }: WhatsAppFabProps) {
       transition={{ type: "spring", stiffness: 380, damping: 28, delay: 0.35 }}
     >
       <a
-        href={WHATSAPP_URL}
+        href={getWhatsAppUrl(locale)}
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
@@ -29,7 +32,7 @@ export function WhatsAppFab({ className }: WhatsAppFabProps) {
         )}
       >
         <MessageCircle className="size-5 shrink-0" aria-hidden />
-        <span className="hidden sm:inline">WhatsApp</span>
+        <span className="hidden sm:inline">{t.fab.label}</span>
       </a>
     </motion.div>
   );
