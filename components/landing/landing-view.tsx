@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -41,6 +42,81 @@ const stagger = {
   },
 };
 
+
+function CanvasHeroStage() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    let animationFrameId: number;
+    let time = 0;
+    
+    const resizeInfo = { width: 0, height: 0 };
+    const handleResize = () => {
+      const parent = canvas.parentElement;
+      if (parent) {
+        const dpr = window.devicePixelRatio || 1;
+        resizeInfo.width = parent.clientWidth;
+        resizeInfo.height = parent.clientHeight;
+        canvas.width = resizeInfo.width * dpr;
+        canvas.height = resizeInfo.height * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = resizeInfo.width + 'px';
+        canvas.style.height = resizeInfo.height + 'px';
+      }
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, resizeInfo.width, resizeInfo.height);
+      time += 0.005;
+      
+      const width = resizeInfo.width;
+      const height = resizeInfo.height;
+      const centerY = height * 0.5;
+
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      
+      for(let x = 0; x < width; x++) {
+        const y = centerY + Math.sin(x * 0.004 + time) * 30 + Math.cos(x * 0.008 + time * 1.5) * 20;
+        ctx.lineTo(x, y);
+      }
+      
+      ctx.strokeStyle = 'rgba(47, 143, 131, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(0, centerY);
+      for(let x = 0; x < width; x++) {
+        const y = centerY + Math.sin(x * 0.005 - time) * 40;
+        ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(22, 50, 79, 0.3)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+    
+    draw();
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-screen mix-blend-plus-lighter" />;
+}
+
 /* ─── Hero ────────────────────────────────────────────────────────── */
 function HeroSection() {
   const { t, locale } = useLanguage();
@@ -53,7 +129,7 @@ function HeroSection() {
         aria-hidden
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% -5%, rgba(90,45,140,0.10) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 85% 60%, rgba(45,184,176,0.07) 0%, transparent 60%)",
+            "radial-gradient(ellipse 80% 60% at 50% -5%, rgba(22, 50, 79,0.10) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 85% 60%, rgba(47, 143, 131,0.07) 0%, transparent 60%)",
         }}
       />
       {/* Subtle grid */}
@@ -69,64 +145,106 @@ function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 pb-28 pt-24 sm:px-6 sm:pb-36 sm:pt-32 lg:px-8">
-        <motion.div
-          className="mx-auto max-w-3xl text-center"
-          variants={stagger.container}
-          initial="hidden"
-          animate="show"
-        >
-          {/* Trust badge */}
-          <motion.div variants={stagger.item} className="mb-6 inline-flex">
-            <span className="stat-chip">
-              {t.hero.trustBadge}
-            </span>
-          </motion.div>
-
-          {/* Eyebrow */}
-          <motion.p variants={stagger.item} className="eyebrow justify-center mb-5">
-            {t.hero.eyebrow}
-          </motion.p>
-
-          {/* Headline */}
-          <motion.h1
-            variants={stagger.item}
-            className="font-display text-balance text-5xl tracking-tight text-foreground sm:text-6xl lg:text-[4rem] lg:leading-[1.05]"
-          >
-            {t.hero.title}{" "}
-            <span className="text-gradient">{t.hero.titleHighlight}</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={stagger.item}
-            className="mx-auto mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
-          >
-            {t.hero.subtitle}
-          </motion.p>
-
-          {/* CTAs */}
+      
+      <div className="relative mx-auto w-full max-w-6xl px-4 pb-28 pt-24 sm:px-6 sm:pb-36 sm:pt-32 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            variants={stagger.item}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-4"
+            className="max-w-2xl text-left"
+            variants={stagger.container}
+            initial="hidden"
+            animate="show"
           >
-            <motion.a
-              href={getWhatsAppUrl(locale)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-sm"
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            {/* Trust badge */}
+            <motion.div variants={stagger.item} className="mb-6 inline-flex">
+              <span className="stat-chip">
+                {t.hero.trustBadge}
+              </span>
+            </motion.div>
+
+            {/* Eyebrow */}
+            <motion.p variants={stagger.item} className="eyebrow mb-5">
+              {t.hero.eyebrow}
+            </motion.p>
+
+            {/* Headline */}
+            <motion.h1
+              variants={stagger.item}
+              className="font-display text-balance text-5xl tracking-tight text-foreground sm:text-6xl lg:text-7xl lg:leading-[1.05]"
             >
-              {t.hero.ctaWhatsApp}
-              <ArrowRight className="size-4" aria-hidden />
-            </motion.a>
-            <a href="#servicios" className="btn-ghost text-sm">
-              {t.hero.ctaServices}
-            </a>
+              {t.hero.title}{" "}
+              <span className="text-gradient block">{t.hero.titleHighlight}</span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              variants={stagger.item}
+              className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+            >
+              {t.hero.subtitle}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={stagger.item}
+              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:gap-4 lg:items-center"
+            >
+              <motion.a
+                href={getWhatsAppUrl(locale)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-sm shadow-card"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              >
+                {t.hero.ctaWhatsApp}
+                <ArrowRight className="size-4 ml-1" aria-hidden />
+              </motion.a>
+              <a href="#proceso" className="btn-ghost text-sm">
+                {t.hero.ctaServices}
+              </a>
+            </motion.div>
           </motion.div>
-        </motion.div>
+
+          {/* Visual Stage */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hidden lg:block relative"
+          >
+             <div className="visual-stage aspect-square max-h-[560px]">
+                <div className="scan-lines"></div>
+                <CanvasHeroStage />
+                
+                {/* SVG Route */}
+                <svg className="route-svg" viewBox="0 0 400 400" preserveAspectRatio="none">
+                  <path d="M 50 350 C 150 350, 250 50, 350 50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeDasharray="6 6" />
+                  <circle cx="50" cy="350" r="4" fill="#d42f7a" />
+                  <circle cx="350" cy="50" r="4" fill="#2db8b0" />
+                </svg>
+
+                {/* Floating Elements */}
+                <div className="absolute top-[20%] right-[10%] floating-panel" style={{ animation: 'floatBlob 6s ease-in-out infinite' }}>
+                   <div className="text-xs text-white/70 mb-1">Status</div>
+                   <div className="flex items-center gap-2">
+                     <span className="w-2 h-2 rounded-full bg-green-400"></span>
+                     <span className="font-medium text-sm">On time</span>
+                   </div>
+                </div>
+
+                <div className="absolute bottom-[25%] left-[10%] floating-panel" style={{ animation: 'floatBlob 8s ease-in-out infinite reverse' }}>
+                   <div className="flex gap-3 items-center">
+                     <div className="brand-mark shrink-0"></div>
+                     <div>
+                       <div className="font-display font-medium leading-none mb-1 text-base tracking-tight">BPORT</div>
+                       <div className="text-[10px] uppercase tracking-wider text-white/60">Logistics Corp.</div>
+                     </div>
+                   </div>
+                </div>
+             </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Bottom fade */}
@@ -181,7 +299,7 @@ function AboutSection() {
             className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm"
             style={{
               background:
-                "linear-gradient(135deg, rgba(90,45,140,0.04) 0%, rgba(255,255,255,1) 50%, rgba(45,184,176,0.04) 100%)",
+                "linear-gradient(135deg, rgba(22, 50, 79,0.04) 0%, rgba(255,255,255,1) 50%, rgba(47, 143, 131,0.04) 100%)",
             }}
           >
             {/* Decorative arc */}
@@ -318,7 +436,7 @@ function ReviewsSection() {
                 className="card-elevated flex flex-col gap-0 overflow-hidden p-6"
               >
                 {/* Quote mark */}
-                <div className="review-quote-mark leading-none">"</div>
+                <div className="review-quote-mark leading-none">&quot;</div>
 
                 {/* Stars + badge */}
                 <div className="mt-1 flex items-center justify-between gap-2">
@@ -622,6 +740,8 @@ function Header() {
               {[
                 ["#nosotros", t.nav.about],
                 ["#servicios", t.nav.services],
+                ["#proceso", t.nav.process],
+                ["#paraquien", t.nav.forWhom],
                 ["#resenas", t.nav.reviews],
                 ["#contacto", t.nav.contact],
               ].map(([href, label]) => (
@@ -657,6 +777,8 @@ function Header() {
           {[
             ["#nosotros", t.nav.about],
             ["#servicios", t.nav.services],
+            ["#proceso", t.nav.process],
+            ["#paraquien", t.nav.forWhom],
             ["#resenas", t.nav.reviews],
             ["#contacto", t.nav.contact],
           ].map(([href, label]) => (
@@ -671,6 +793,154 @@ function Header() {
         </nav>
       </div>
     </header>
+  );
+}
+
+
+/* ─── Trust Section (Counters) ────────────────────────────────────── */
+function Counter({ target, suffix }: { target: number; suffix: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const currentRef = ref.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          const duration = 2000;
+          const startTime = performance.now();
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = progress * (2 - progress);
+            setCount(Math.floor(easeProgress * target));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    if (currentRef) observer.observe(currentRef);
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, [target]);
+  return (
+    <span ref={ref} className="text-4xl md:text-5xl font-display font-semibold text-foreground tracking-tight">
+      {count}{suffix}
+    </span>
+  );
+}
+
+function TrustSection() {
+  const { t } = useLanguage();
+  return (
+    <MotionSection id="confianza" className="py-24 bg-card border-b border-border/50">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center max-w-2xl mx-auto">
+          <span className="eyebrow mb-4 justify-center">{t.trust.kicker}</span>
+          <h2 className="text-3xl md:text-4xl font-display tracking-tight text-foreground mb-4">
+            {t.trust.title}
+          </h2>
+          <p className="text-muted-foreground text-lg">{t.trust.subtitle}</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+          {t.trust.stats.map((stat, i) => (
+            <div key={i} className="flex flex-col items-center gap-2 p-6 rounded-2xl border border-border/60 bg-background/50 hover:bg-muted/30 transition-colors shadow-sm relative overflow-hidden group">
+              <Counter target={stat.target} suffix={stat.suffix} />
+              <span className="text-sm text-muted-foreground max-w-[140px] leading-snug">{stat.label}</span>
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
+/* ─── Process Section ─────────────────────────────────────────────── */
+function ProcessSection() {
+  const { t } = useLanguage();
+  return (
+    <MotionSection id="proceso" className="py-24 bg-background border-b border-border/50 overflow-hidden relative">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 max-w-3xl">
+          <span className="eyebrow mb-4">{t.process.kicker}</span>
+          <h2 className="text-3xl md:text-5xl font-display tracking-tight text-foreground mb-6">
+            {t.process.title}
+          </h2>
+          <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl">{t.process.subtitle}</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {t.process.items.map((item, i) => (
+            <div key={i} className="group relative p-8 rounded-2xl bg-card border border-border/60 hover:border-primary/40 transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl">
+              <div className="text-6xl font-display text-muted/20 font-bold mb-6 group-hover:text-primary/20 transition-colors">
+                {item.step}
+              </div>
+              <h3 className="text-xl font-medium text-foreground mb-3">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              <div className="absolute top-8 right-8 text-primary opacity-0 group-hover:opacity-100 transition-opacity translate-x-2 group-hover:translate-x-0">
+                <ArrowRight className="w-6 h-6" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </MotionSection>
+  );
+}
+
+/* ─── For Whom Section ────────────────────────────────────────────── */
+function ForWhomSection() {
+  const { t } = useLanguage();
+  return (
+    <MotionSection id="paraquien" className="py-24 bg-card border-b border-border/50">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+          <div className="flex flex-col justify-center space-y-10 py-8">
+            <div>
+              <span className="eyebrow mb-4">{t.forWhom.kickerTarget}</span>
+              <h2 className="text-4xl md:text-5xl font-display tracking-tight text-foreground max-w-md">{t.forWhom.targetTitle}</h2>
+            </div>
+            <div className="space-y-8">
+              {t.forWhom.targetItems.map((item, i) => (
+                <div key={i} className="flex gap-5 items-start">
+                  <div className="mt-1 bg-primary/10 p-3 rounded-xl text-primary shrink-0 shadow-sm border border-primary/20">
+                    <CheckCircle2 className="size-6" strokeWidth={2.5} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground text-lg mb-1">{item.title}</h4>
+                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="dark-feature flex flex-col justify-center relative overflow-hidden group">
+            {/* abstract glow effect */}
+            <div className="absolute -top-32 -right-32 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
+            <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-accent/20 rounded-full blur-[80px]" />
+            
+            <div className="relative z-10">
+              <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary mb-6">
+                {t.forWhom.kickerDiff}
+              </span>
+              <h2 className="text-4xl font-display font-medium text-white mb-10 tracking-tight">{t.forWhom.diffTitle}</h2>
+              <div className="space-y-8">
+                {t.forWhom.diffItems.map((item, i) => (
+                  <div key={i} className="border-l-2 border-primary/50 pl-6 hover:border-accent transition-colors">
+                    <h4 className="font-semibold text-white text-lg mb-2">{item.title}</h4>
+                    <p className="text-white/70 leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </MotionSection>
   );
 }
 
@@ -690,7 +960,10 @@ function LandingBody() {
       >
         <main>
           <HeroSection />
+          <TrustSection />
+          <ProcessSection />
           <AboutSection />
+          <ForWhomSection />
           <ServicesSection />
           <ReviewsSection />
           <ContactSection />

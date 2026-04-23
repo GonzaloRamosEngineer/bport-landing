@@ -29,6 +29,28 @@ export type Messages = {
     reviews: string;
     contact: string;
     whatsapp: string;
+    process: string;
+    forWhom: string;
+  };
+  trust: {
+    kicker: string;
+    title: string;
+    subtitle: string;
+    stats: { target: number; suffix: string; label: string; }[];
+  };
+  process: {
+    kicker: string;
+    title: string;
+    subtitle: string;
+    items: { step: string; title: string; description: string; }[];
+  };
+  forWhom: {
+    kickerTarget: string;
+    targetTitle: string;
+    targetItems: { title: string; description: string; }[];
+    kickerDiff: string;
+    diffTitle: string;
+    diffItems: { title: string; description: string; }[];
   };
   hero: {
     eyebrow: string;
@@ -112,6 +134,46 @@ export const translations: Record<Locale, Messages> = {
       reviews: "Reseñas",
       contact: "Contacto",
       whatsapp: "WhatsApp",
+      process: "Proceso",
+      forWhom: "Para quién",
+    },
+    trust: {
+      kicker: "Confianza",
+      title: "Datos que transmiten solidez desde el primer scroll.",
+      subtitle: "Esta sección mantiene la idea que te gustó, pero ahora con contadores dinámicos y un look más premium para reforzar autoridad y respaldo.",
+      stats: [
+        { target: 20, suffix: "+", label: "años de experiencia operativa" },
+        { target: 500, suffix: "+", label: "cargas gestionadas" },
+        { target: 18, suffix: "+", label: "mercados y rutas conectadas" },
+        { target: 24, suffix: "/7", label: "seguimiento y acompañamiento" },
+      ],
+    },
+    process: {
+      kicker: "Proceso",
+      title: "Una operación más clara, más ordenada y mejor presentada.",
+      subtitle: "Esta parte toma el lenguaje visual más sistema / industrial / premium que viste en la referencia, pero sin perder claridad para el cliente de BPORT.",
+      items: [
+        { step: "01", title: "Nos contás qué querés importar", description: "Entendemos producto, origen, volumen y contexto de negocio." },
+        { step: "02", title: "Definimos la mejor estrategia logística", description: "Buscamos una solución más conveniente según tiempos y costos." },
+        { step: "03", title: "Coordinamos de punta a punta", description: "Documentación, seguimiento y acompañamiento durante todo el proceso." },
+        { step: "04", title: "Recibís la carga con mayor tranquilidad", description: "Menos incertidumbre, más control y mejor experiencia de operación." },
+      ],
+    },
+    forWhom: {
+      kickerTarget: "Para quién es",
+      targetTitle: "Hecho para empresas chicas que necesitan respaldo grande.",
+      targetItems: [
+        { title: "Emprendedores que importan por primera vez.", description: "Necesitan acompañamiento claro y una guía confiable." },
+        { title: "Marcas e-commerce en crecimiento.", description: "Buscan importar mejor, sin perder tiempo ni plata en errores evitables." },
+        { title: "PYMES que quieren escalar su operación.", description: "Requieren una logística más ordenada, previsible y profesional." }
+      ],
+      kickerDiff: "Diferencial",
+      diffTitle: "Por qué elegir BPORT",
+      diffItems: [
+        { title: "Atención personalizada.", description: "No sos un número ni una operación más dentro de un sistema." },
+        { title: "Experiencia operativa real.", description: "No vendemos humo: entendemos la ejecución, los tiempos y los riesgos." },
+        { title: "Enfoque en simplificarte la vida.", description: "Menos complejidad, más claridad y mejor toma de decisiones." }
+      ],
     },
     hero: {
       eyebrow: "Logística Internacional",
@@ -245,6 +307,46 @@ export const translations: Record<Locale, Messages> = {
       reviews: "Reviews",
       contact: "Contact",
       whatsapp: "WhatsApp",
+      process: "Process",
+      forWhom: "For whom",
+    },
+    trust: {
+      kicker: "Trust",
+      title: "Data that conveys solidity from the first scroll.",
+      subtitle: "This section keeps the idea you liked, but now with dynamic counters and a more premium look to reinforce authority.",
+      stats: [
+        { target: 20, suffix: "+", label: "years of operational experience" },
+        { target: 500, suffix: "+", label: "shipments managed" },
+        { target: 18, suffix: "+", label: "markets and routes connected" },
+        { target: 24, suffix: "/7", label: "tracking and support" },
+      ],
+    },
+    process: {
+      kicker: "Process",
+      title: "A clearer, more structured, and better-presented operation.",
+      subtitle: "This part adopts the system / industrial / premium visual language seen in the reference, but without losing clarity.",
+      items: [
+        { step: "01", title: "Tell us what you want to import", description: "We understand the product, origin, volume, and business context." },
+        { step: "02", title: "We define the best strategy", description: "We look for a more convenient solution based on time and costs." },
+        { step: "03", title: "End-to-end coordination", description: "Documentation, tracking, and support throughout the entire process." },
+        { step: "04", title: "Receive your cargo with peace of mind", description: "Less uncertainty, more control, and a better operational experience." },
+      ],
+    },
+    forWhom: {
+      kickerTarget: "For whom",
+      targetTitle: "Built for small companies that need big backing.",
+      targetItems: [
+        { title: "First-time importers.", description: "They need clear guidance and reliable support." },
+        { title: "Growing e-commerce brands.", description: "Looking to import better, without wasting time or money on avoidable mistakes." },
+        { title: "SMEs looking to scale their operation.", description: "Require more orderly, predictable, and professional logistics." }
+      ],
+      kickerDiff: "Differentiator",
+      diffTitle: "Why choose BPORT",
+      diffItems: [
+        { title: "Personalized attention.", description: "You're not just a number or another operation in a system." },
+        { title: "Real operational experience.", description: "We understand execution, timing, and risks." },
+        { title: "Focused on simplifying your life.", description: "Less complexity, more clarity, and better decision-making." }
+      ],
     },
     hero: {
       eyebrow: "International Logistics",
@@ -377,6 +479,46 @@ export const translations: Record<Locale, Messages> = {
       reviews: "Avaliações",
       contact: "Contato",
       whatsapp: "WhatsApp",
+      process: "Processo",
+      forWhom: "Para quem",
+    },
+    trust: {
+      kicker: "Confiança",
+      title: "Dados que transmitem solidez desde o primeiro scroll.",
+      subtitle: "Esta seção mantém a ideia, agora com contadores dinâmicos e um visual mais premium para reforçar a autoridade.",
+      stats: [
+        { target: 20, suffix: "+", label: "anos de experiência operacional" },
+        { target: 500, suffix: "+", label: "cargas gerenciadas" },
+        { target: 18, suffix: "+", label: "mercados e rotas conectadas" },
+        { target: 24, suffix: "/7", label: "rastreamento e suporte" },
+      ],
+    },
+    process: {
+      kicker: "Processo",
+      title: "Uma operação mais clara, ordenada e bem apresentada.",
+      subtitle: "Adotamos a linguagem visual industrial vista na referência, mas sem perder a clareza para o cliente BPORT.",
+      items: [
+        { step: "01", title: "Conte-nos o que você quer importar", description: "Entendemos o produto, origem, volume e contexto de negócios." },
+        { step: "02", title: "Definimos a melhor estratégia", description: "Buscamos a solução mais conveniente segundo o tempo e os custos." },
+        { step: "03", title: "Coordenação de ponta a ponta", description: "Documentação, rastreamento e suporte durante todo o processo." },
+        { step: "04", title: "Receba a carga com tranquilidade", description: "Menos incerteza, mais controle e uma melhor experiência." },
+      ],
+    },
+    forWhom: {
+      kickerTarget: "Para quem",
+      targetTitle: "Construído para pequenas empresas que precisam de um grande apoio.",
+      targetItems: [
+        { title: "Importadores de primeira viagem.", description: "Eles precisam de orientação clara e confiável." },
+        { title: "Marcas de e-commerce em crescimento.", description: "Buscando importar melhor, sem perder tempo ou dinheiro com erros." },
+        { title: "PMEs que buscam escalar sua operação.", description: "Exigem logística mais ordenada, previsível e profissional." }
+      ],
+      kickerDiff: "Diferencial",
+      diffTitle: "Por que escolher a BPORT",
+      diffItems: [
+        { title: "Atenção personalizada.", description: "Você não é apenas um número ou mais uma operação em um sistema." },
+        { title: "Experiência operacional real.", description: "Nós entendemos a execução, tempo e os riscos reais." },
+        { title: "Foco em simplificar sua vida.", description: "Menos complexidade, mais clareza e melhores tomadas de decisão." }
+      ],
     },
     hero: {
       eyebrow: "Logística Internacional",
