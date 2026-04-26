@@ -152,8 +152,8 @@ export const translations: Record<Locale, Messages> = {
     },
     trust: {
       kicker: "Confianza",
-      title: "Datos que transmiten solidez desde el primer scroll.",
-      subtitle: "Brindamos el respaldo logístico y la experiencia operativa que los emprendedores y pequeñas empresas necesitan para operar a escala global con total seguridad.",
+      title: "La solidez y confianza que tu negocio necesita.",
+      subtitle: "Te brindamos el respaldo logístico y la experiencia operativa que necesitás para que tu empresa opere a escala global con total seguridad.",
       stats: [
         { target: 20, suffix: "+", label: "años de experiencia operativa" },
         { target: 500, suffix: "+", label: "cargas gestionadas" },
@@ -163,29 +163,29 @@ export const translations: Record<Locale, Messages> = {
     },
     process: {
       kicker: "Proceso",
-      title: "Una operación más clara, más ordenada y mejor presentada.",
-      subtitle: "Un método de trabajo claro, ágil y sin burocracia, diseñado para simplificar cada etapa de tu importación y darte mayor tranquilidad.",
+      title: "Una operación clara, ordenada y sin sorpresas para vos.",
+      subtitle: "Diseñamos un método de trabajo claro, ágil y sin burocracia para simplificar cada etapa de tu importación y darte mayor tranquilidad.",
       items: [
-        { step: "01", title: "Nos contás qué querés importar", description: "Entendemos producto, origen, volumen y contexto de negocio." },
-        { step: "02", title: "Definimos la mejor estrategia logística", description: "Buscamos una solución más conveniente según tiempos y costos." },
-        { step: "03", title: "Coordinamos de punta a punta", description: "Documentación, seguimiento y acompañamiento durante todo el proceso." },
-        { step: "04", title: "Recibís la carga con mayor tranquilidad", description: "Menos incertidumbre, más control y mejor experiencia de operación." },
+        { step: "01", title: "Nos contás qué querés importar", description: "Entendemos tu producto, origen, volumen y el contexto de tu negocio." },
+        { step: "02", title: "Diseñamos tu estrategia logística ideal", description: "Buscamos la solución más conveniente para tus tiempos y costos." },
+        { step: "03", title: "Coordinamos tu carga de punta a punta", description: "Cuidamos la documentación y te acompañamos durante todo el proceso." },
+        { step: "04", title: "Recibí tu carga con total tranquilidad", description: "Llevamos el control para que vos tengas menos incertidumbre y la mejor experiencia." },
       ],
     },
     forWhom: {
       kickerTarget: "Para quién es",
-      targetTitle: "Hecho para empresas chicas que necesitan respaldo grande.",
+      targetTitle: "Diseñado para tu empresa: si necesitás respaldo grande, estamos para vos.",
       targetItems: [
-        { title: "Emprendedores que importan por primera vez.", description: "Necesitan acompañamiento claro y una guía confiable." },
-        { title: "Marcas e-commerce en crecimiento.", description: "Buscan importar mejor, sin perder tiempo ni plata en errores evitables." },
-        { title: "PYMES que quieren escalar su operación.", description: "Requieren una logística más ordenada, previsible y profesional." }
+        { title: "Si vas a importar por primera vez.", description: "Te brindamos acompañamiento claro y una guía confiable." },
+        { title: "Si tu e-commerce está creciendo.", description: "Importá mejor, sin perder tiempo ni plata en errores evitables." },
+        { title: "Si buscás escalar tu operación.", description: "Logramos una logística ordenada, previsible y profesional para tu PYME." }
       ],
       kickerDiff: "Diferencial",
-      diffTitle: "Por qué elegir BPORT",
+      diffTitle: "Por qué elegirnos como tu partner",
       diffItems: [
-        { title: "Atención personalizada.", description: "No sos un número ni una operación más dentro de un sistema." },
-        { title: "Experiencia operativa real.", description: "No vendemos humo: entendemos la ejecución, los tiempos y los riesgos." },
-        { title: "Enfoque en simplificarte la vida.", description: "Menos complejidad, más claridad y mejor toma de decisiones." }
+        { title: "Atención 100% personalizada.", description: "Para nosotros, no sos un número ni una operación más." },
+        { title: "Experiencia operativa real.", description: "No te vendemos humo: entendemos tu ejecución, tus tiempos y tus riesgos." },
+        { title: "Nos enfocamos en simplificarte la vida.", description: "Menos complejidad para vos, más claridad y mejores decisiones de negocio." }
       ],
     },
     hero: {
@@ -193,32 +193,32 @@ export const translations: Record<Locale, Messages> = {
       title: "Conectamos tu carga",
       titleHighlight: "con el mundo",
       subtitle:
-        "Más de 20 años de experiencia operativa. Asesoramiento personalizado para pequeños y medianos emprendedores que quieren operar a escala global.",
-      ctaWhatsApp: "Cotiza tu carga hoy",
-      ctaServices: "Explorar servicios",
+        "Más de 20 años de experiencia operativa real. Te asesoramos personalmente para que operes a escala global sin complicaciones.",
+      ctaWhatsApp: "Cotizá tu carga hoy",
+      ctaServices: "Conocé nuestros servicios",
       trustBadge: "Desde el año 2000 · Montevideo, Uruguay",
     },
     about: {
       kicker: "Sobre nosotros",
-      title: "Trayectoria y acompañamiento cercano",
+      title: "Nuestra trayectoria y acompañamiento cercano a vos",
       lineBeforeHighlight:
-        "Base en Uruguay con operaciones regionales y una red global de agentes confiables en China y mercados clave. Proveemos ",
+        "Con base en Uruguay y una red global de agentes confiables, te proveemos ",
       highlight: "asesoramiento personalizado",
       lineAfterHighlight:
-        " con el compromiso de eficiencia y trazabilidad que las grandes corporaciones no ofrecen a escala humana. Nuestra filosofía es 'B Fast, B Smart': brindamos agilidad mental y operativa para resolver los problemas de tu negocio.",
+        " con la eficiencia y trazabilidad que necesitás. Nuestra filosofía es 'B Fast, B Smart': aplicamos nuestra agilidad mental y operativa para resolver los desafíos de tu negocio.",
       bullet1:
-        "Modelo consultivo: tu contexto primero, el volumen después.",
+        "Entendemos tu contexto primero, el volumen después.",
       bullet2:
-        "Comunicación directa con especialistas — sin burocracia.",
+        "Comunicate directo con nuestros especialistas, sin burocracia.",
       yearLabel: "Año de inicio",
       statLabel: "Años de experiencia",
       statValue: "+25",
     },
     services: {
       kicker: "Servicios",
-      title: "Lo esencial, bien ejecutado",
+      title: "Tus operaciones, ejecutadas a la perfección",
       subtitle:
-        "Soluciones modulares para importar y exportar con visibilidad en cada etapa del proceso.",
+        "Soluciones modulares para que importes y exportes con total visibilidad en cada etapa de tu proceso.",
       items: [
         {
           id: "import-export",
@@ -387,8 +387,8 @@ export const translations: Record<Locale, Messages> = {
     },
     trust: {
       kicker: "Trust",
-      title: "Data that conveys solidity from the first scroll.",
-      subtitle: "This section keeps the idea you liked, but now with dynamic counters and a more premium look to reinforce authority.",
+      title: "The solidity and trust your business needs.",
+      subtitle: "We provide the logistical backing and operational experience you need for your company to operate on a global scale with total security.",
       stats: [
         { target: 20, suffix: "+", label: "years of operational experience" },
         { target: 500, suffix: "+", label: "shipments managed" },
@@ -398,29 +398,29 @@ export const translations: Record<Locale, Messages> = {
     },
     process: {
       kicker: "Process",
-      title: "A clearer, more structured, and better-presented operation.",
-      subtitle: "This part adopts the system / industrial / premium visual language seen in the reference, but without losing clarity.",
+      title: "A clear, organized operation with no surprises for you.",
+      subtitle: "We design a clear, agile, and bureaucracy-free workflow to simplify every stage of your import and give you greater peace of mind.",
       items: [
-        { step: "01", title: "Tell us what you want to import", description: "We understand the product, origin, volume, and business context." },
-        { step: "02", title: "We define the best strategy", description: "We look for a more convenient solution based on time and costs." },
-        { step: "03", title: "End-to-end coordination", description: "Documentation, tracking, and support throughout the entire process." },
-        { step: "04", title: "Receive your cargo with peace of mind", description: "Less uncertainty, more control, and a better operational experience." },
+        { step: "01", title: "Tell us what you want to import", description: "We understand your product, origin, volume, and business context." },
+        { step: "02", title: "We design your ideal logistics strategy", description: "We find the most convenient solution tailored to your timing and costs." },
+        { step: "03", title: "We coordinate your cargo end-to-end", description: "We handle the documentation and support you throughout the entire process." },
+        { step: "04", title: "Receive your cargo with peace of mind", description: "We maintain control so you experience less uncertainty and a better operation." },
       ],
     },
     forWhom: {
       kickerTarget: "For whom",
-      targetTitle: "Built for small companies that need big backing.",
+      targetTitle: "Designed for your business: if you need big backing, we are here for you.",
       targetItems: [
-        { title: "First-time importers.", description: "They need clear guidance and reliable support." },
-        { title: "Growing e-commerce brands.", description: "Looking to import better, without wasting time or money on avoidable mistakes." },
-        { title: "SMEs looking to scale their operation.", description: "Require more orderly, predictable, and professional logistics." }
+        { title: "If you are importing for the first time.", description: "We provide clear guidance and reliable support." },
+        { title: "If your e-commerce is growing.", description: "Import better, without wasting your time or money on avoidable mistakes." },
+        { title: "If you want to scale your operation.", description: "We achieve orderly, predictable, and professional logistics for your SME." }
       ],
       kickerDiff: "Differentiator",
-      diffTitle: "Why choose BPORT",
+      diffTitle: "Why choose us as your partner",
       diffItems: [
-        { title: "Personalized attention.", description: "You're not just a number or another operation in a system." },
-        { title: "Real operational experience.", description: "We understand execution, timing, and risks." },
-        { title: "Focused on simplifying your life.", description: "Less complexity, more clarity, and better decision-making." }
+        { title: "100% personalized attention.", description: "To us, you are not just a number or another operation." },
+        { title: "Real operational experience.", description: "No empty promises: we understand your execution, your timing, and your risks." },
+        { title: "We focus on simplifying your life.", description: "Less complexity for you, more clarity, and better business decisions." }
       ],
     },
     hero: {
@@ -428,32 +428,32 @@ export const translations: Record<Locale, Messages> = {
       title: "We connect your cargo",
       titleHighlight: "to the world",
       subtitle:
-        "Over 20 years of operational experience. Personalized advisory for small and medium-sized entrepreneurs looking to operate at a global scale.",
+        "Over 20 years of real operational experience. We personally advise you so you can operate at a global scale without complications.",
       ctaWhatsApp: "Quote your cargo today",
-      ctaServices: "Explore services",
+      ctaServices: "Explore our services",
       trustBadge: "Since 2000 · Montevideo, Uruguay",
     },
     about: {
       kicker: "About us",
-      title: "Track record and hands-on guidance",
+      title: "Our track record and hands-on guidance for you",
       lineBeforeHighlight:
-        "Based in Uruguay with regional operations and a global network of reliable agents in China and key markets. We provide ",
+        "Based in Uruguay and backed by a global network of reliable agents, we provide you with ",
       highlight: "personalized advisory",
       lineAfterHighlight:
-        " with the commitment to efficiency and traceability that large corporations do not offer at a human scale.",
+        " with the efficiency and traceability you need. Our philosophy is 'B Fast, B Smart': we apply our mental and operational agility to solve your business challenges.",
       bullet1:
-        "Consultative model: your context first, volume second.",
+        "We understand your context first, your volume second.",
       bullet2:
-        "Direct communication with specialists — no bureaucracy.",
+        "Communicate directly with our specialists, without bureaucracy.",
       yearLabel: "Year founded",
       statLabel: "Years of experience",
       statValue: "+25",
     },
     services: {
       kicker: "Services",
-      title: "The essentials, executed well",
+      title: "Your operations, executed to perfection",
       subtitle:
-        "Modular solutions to import and export with visibility at every stage of the process.",
+        "Modular solutions so you can import and export with total visibility at every stage of your process.",
       items: [
         {
           id: "import-export",
@@ -569,7 +569,7 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contact",
       title: "Let's talk about your next move",
       subtitle:
-        "Fill out the form or reach us on WhatsApp. We prioritize commercial and operational inquiries.",
+        "Fill out the form or reach us on WhatsApp at +598 92 330925. We respond with priority to commercial and operational inquiries.",
       officeLabel: "Office",
       officeAddress: "Minas 1543/502 – Port area, Montevideo, Uruguay",
       emailLabel: "Email",
@@ -621,8 +621,8 @@ export const translations: Record<Locale, Messages> = {
     },
     trust: {
       kicker: "Confiança",
-      title: "Dados que transmitem solidez desde o primeiro scroll.",
-      subtitle: "Esta seção mantém a ideia, agora com contadores dinâmicos e um visual mais premium para reforçar a autoridade.",
+      title: "A solidez e confiança que o seu negócio precisa.",
+      subtitle: "Oferecemos o suporte logístico e a experiência operacional que você precisa para que sua empresa opere em escala global com total segurança.",
       stats: [
         { target: 20, suffix: "+", label: "anos de experiência operacional" },
         { target: 500, suffix: "+", label: "cargas gerenciadas" },
@@ -632,29 +632,29 @@ export const translations: Record<Locale, Messages> = {
     },
     process: {
       kicker: "Processo",
-      title: "Uma operação mais clara, ordenada e bem apresentada.",
-      subtitle: "Adotamos a linguagem visual industrial vista na referência, mas sem perder a clareza para o cliente BPORT.",
+      title: "Uma operação clara, organizada e sem surpresas para você.",
+      subtitle: "Desenhamos um método de trabalho claro, ágil e sem burocracia para simplificar cada etapa da sua importação e dar a você maior tranquilidade.",
       items: [
-        { step: "01", title: "Conte-nos o que você quer importar", description: "Entendemos o produto, origem, volume e contexto de negócios." },
-        { step: "02", title: "Definimos a melhor estratégia", description: "Buscamos a solução mais conveniente segundo o tempo e os custos." },
-        { step: "03", title: "Coordenação de ponta a ponta", description: "Documentação, rastreamento e suporte durante todo o processo." },
-        { step: "04", title: "Receba a carga com tranquilidade", description: "Menos incerteza, mais controle e uma melhor experiência." },
+        { step: "01", title: "Conte-nos o que você quer importar", description: "Entendemos o seu produto, origem, volume e o contexto do seu negócio." },
+        { step: "02", title: "Desenhamos a sua estratégia logística ideal", description: "Buscamos a solução mais conveniente para o seu tempo e os seus custos." },
+        { step: "03", title: "Coordenamos sua carga de ponta a ponta", description: "Cuidamos da documentação e acompanhamos você durante todo o processo." },
+        { step: "04", title: "Receba sua carga com total tranquilidade", description: "Mantemos o controle para que você tenha menos incerteza e a melhor experiência." },
       ],
     },
     forWhom: {
       kickerTarget: "Para quem",
-      targetTitle: "Construído para pequenas empresas que precisam de um grande apoio.",
+      targetTitle: "Desenhado para sua empresa: se você precisa de um grande apoio, estamos aqui para você.",
       targetItems: [
-        { title: "Importadores de primeira viagem.", description: "Eles precisam de orientação clara e confiável." },
-        { title: "Marcas de e-commerce em crescimento.", description: "Buscando importar melhor, sem perder tempo ou dinheiro com erros." },
-        { title: "PMEs que buscam escalar sua operação.", description: "Exigem logística mais ordenada, previsível e profissional." }
+        { title: "Se você vai importar pela primeira vez.", description: "Oferecemos acompanhamento claro e um guia confiável para você." },
+        { title: "Se o seu e-commerce está crescendo.", description: "Importe melhor, sem perder tempo ou dinheiro com erros evitáveis." },
+        { title: "Se você busca escalar sua operação.", description: "Conquistamos uma logística ordenada, previsível e profissional para a sua PME." }
       ],
       kickerDiff: "Diferencial",
-      diffTitle: "Por que escolher a BPORT",
+      diffTitle: "Por que nos escolher como seu parceiro",
       diffItems: [
-        { title: "Atenção personalizada.", description: "Você não é apenas um número ou mais uma operação em um sistema." },
-        { title: "Experiência operacional real.", description: "Nós entendemos a execução, tempo e os riscos reais." },
-        { title: "Foco em simplificar sua vida.", description: "Menos complexidade, mais clareza e melhores tomadas de decisão." }
+        { title: "Atendimento 100% personalizado.", description: "Para nós, você não é apenas um número ou mais uma operação." },
+        { title: "Experiência operacional real.", description: "Sem promessas vazias: nós entendemos a sua execução, o seu tempo e os seus riscos." },
+        { title: "Foco em simplificar sua vida.", description: "Menos complexidade para você, mais clareza e melhores decisões de negócios." }
       ],
     },
     hero: {
@@ -662,32 +662,32 @@ export const translations: Record<Locale, Messages> = {
       title: "Conectamos sua carga",
       titleHighlight: "ao mundo",
       subtitle:
-        "Mais de 20 anos de experiência operacional. Assessoria personalizada para pequenas e médias empresas que querem operar em escala global.",
-      ctaWhatsApp: "Cotar sua carga hoje",
-      ctaServices: "Ver serviços",
+        "Mais de 20 anos de experiência operacional real. Assessoramos você pessoalmente para que opere em escala global sem complicações.",
+      ctaWhatsApp: "Cote sua carga hoje",
+      ctaServices: "Conheça nossos serviços",
       trustBadge: "Desde 2000 · Montevidéu, Uruguai",
     },
     about: {
       kicker: "Sobre nós",
-      title: "Trajetória e acompanhamento próximo",
+      title: "Nossa trajetória e acompanhamento próximo a você",
       lineBeforeHighlight:
-        "Baseados no Uruguai com operações regionais e uma rede global de agentes confiáveis na China e mercados-chave. Oferecemos ",
+        "Com base no Uruguai e uma rede global de agentes confiáveis, oferecemos a você ",
       highlight: "assessoria personalizada",
       lineAfterHighlight:
-        " com compromisso de eficiência e rastreabilidade que as grandes corporações não oferecem em escala humana.",
+        " com a eficiência e rastreabilidade que você precisa. Nossa filosofia é 'B Fast, B Smart': aplicamos nossa agilidade mental e operacional para resolver os desafios do seu negócio.",
       bullet1:
-        "Modelo consultivo: seu contexto em primeiro lugar.",
+        "Entendemos seu contexto primeiro, o volume depois.",
       bullet2:
-        "Comunicação direta com especialistas — sem burocracia.",
+        "Comunique-se direto com nossos especialistas, sem burocracia.",
       yearLabel: "Ano de fundação",
       statLabel: "Anos de experiência",
       statValue: "+25",
     },
     services: {
       kicker: "Serviços",
-      title: "O essencial, bem executado",
+      title: "Suas operações, executadas à perfeição",
       subtitle:
-        "Soluções modulares para importar e exportar com visibilidade em cada etapa.",
+        "Soluções modulares para que você importe e exporte com total visibilidade em cada etapa do seu processo.",
       items: [
         {
           id: "import-export",
@@ -803,7 +803,7 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contato",
       title: "Vamos falar sobre sua próxima operação",
       subtitle:
-        "Preencha o formulário ou fale conosco pelo WhatsApp. Priorizamos consultas comerciais e operacionais.",
+        "Preencha o formulário ou fale conosco pelo WhatsApp em +598 92 330925. Priorizamos consultas comerciais e operacionais.",
       officeLabel: "Escritório",
       officeAddress: "Minas 1543/502 – Zona Portuária, Montevidéu, Uruguai",
       emailLabel: "E-mail",
