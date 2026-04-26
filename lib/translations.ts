@@ -153,7 +153,7 @@ export const translations: Record<Locale, Messages> = {
     trust: {
       kicker: "Confianza",
       title: "Datos que transmiten solidez desde el primer scroll.",
-      subtitle: "Esta sección mantiene la idea que te gustó, pero ahora con contadores dinámicos y un look más premium para reforzar autoridad y respaldo.",
+      subtitle: "Brindamos el respaldo logístico y la experiencia operativa que los emprendedores y pequeñas empresas necesitan para operar a escala global con total seguridad.",
       stats: [
         { target: 20, suffix: "+", label: "años de experiencia operativa" },
         { target: 500, suffix: "+", label: "cargas gestionadas" },
@@ -164,7 +164,7 @@ export const translations: Record<Locale, Messages> = {
     process: {
       kicker: "Proceso",
       title: "Una operación más clara, más ordenada y mejor presentada.",
-      subtitle: "Esta parte toma el lenguaje visual más sistema / industrial / premium que viste en la referencia, pero sin perder claridad para el cliente de BPORT.",
+      subtitle: "Un método de trabajo claro, ágil y sin burocracia, diseñado para simplificar cada etapa de tu importación y darte mayor tranquilidad.",
       items: [
         { step: "01", title: "Nos contás qué querés importar", description: "Entendemos producto, origen, volumen y contexto de negocio." },
         { step: "02", title: "Definimos la mejor estrategia logística", description: "Buscamos una solución más conveniente según tiempos y costos." },
@@ -205,7 +205,7 @@ export const translations: Record<Locale, Messages> = {
         "Base en Uruguay con operaciones regionales y una red global de agentes confiables en China y mercados clave. Proveemos ",
       highlight: "asesoramiento personalizado",
       lineAfterHighlight:
-        " con el compromiso de eficiencia y trazabilidad que las grandes corporaciones no ofrecen a escala humana.",
+        " con el compromiso de eficiencia y trazabilidad que las grandes corporaciones no ofrecen a escala humana. Nuestra filosofía es 'B Fast, B Smart': brindamos agilidad mental y operativa para resolver los problemas de tu negocio.",
       bullet1:
         "Modelo consultivo: tu contexto primero, el volumen después.",
       bullet2:
@@ -334,7 +334,7 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contacto",
       title: "Hablemos de tu próximo movimiento",
       subtitle:
-        "Completá el formulario o escribinos por WhatsApp. Respondemos con prioridad a consultas comerciales y operativas.",
+        "Completá el formulario o escribinos por WhatsApp al +598 92 330925. Respondemos con prioridad a consultas comerciales y operativas.",
       officeLabel: "Oficina",
       officeAddress: "Minas 1543/502 – Zona Puerto, Montevideo, Uruguay",
       emailLabel: "Email",
