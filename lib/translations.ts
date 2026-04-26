@@ -4,9 +4,21 @@ export const locales: Locale[] = ["es", "en", "pt"];
 
 export const defaultLocale: Locale = "es";
 
-export type ServiceCopy = {
+export type PlanDetail = {
   title: string;
+  items: string[];
+};
+
+export type ServiceCopy = {
+  id: string;
+  title: string;
+  subtitle: string;
   description: string;
+  icon: string;
+  mainFeatures: string[];
+  targetAudience: string;
+  details: PlanDetail[];
+  importantNote?: string;
 };
 
 export type ReviewCopy = {
@@ -208,24 +220,84 @@ export const translations: Record<Locale, Messages> = {
         "Soluciones modulares para importar y exportar con visibilidad en cada etapa del proceso.",
       items: [
         {
+          id: "import-export",
           title: "Importación & Exportación",
-          description:
-            "Trading y soluciones B2B a medida para PyMEs y emprendedores.",
+          subtitle: "TRADING & B2B",
+          description: "Trading y soluciones B2B a medida para PyMEs y emprendedores.",
+          icon: "Globe2",
+          mainFeatures: ["Búsqueda de proveedores", "Negociación internacional", "Análisis de viabilidad"],
+          targetAudience: "Emprendedores o empresas que buscan importar por primera vez o mejorar sus condiciones de compra.",
+          details: [
+            {
+              title: "¿Qué resolvemos?",
+              items: ["Evitamos intermediarios innecesarios.", "Validamos fábricas en origen (ej. China)."]
+            },
+            {
+              title: "Metodología",
+              items: ["Estudio de costos integrales (puerta a puerta).", "Gestión de muestras y certificaciones."]
+            }
+          ],
+          importantNote: "Evaluamos el costo total antes de realizar cualquier compra en origen."
         },
         {
+          id: "transporte",
           title: "Transporte Internacional",
-          description:
-            "FCL / LCL, Aéreo y Terrestre con seguimiento en tiempo real.",
+          subtitle: "FCL / LCL & MULTIMODAL",
+          description: "FCL / LCL, Aéreo y Terrestre con seguimiento en tiempo real.",
+          icon: "Ship",
+          mainFeatures: ["Flete Marítimo (FCL/LCL)", "Flete Aéreo Urgente", "Transporte Terrestre"],
+          targetAudience: "Empresas que necesitan mover carga con tarifas competitivas y rutas eficientes.",
+          details: [
+            {
+              title: "Opciones de transporte",
+              items: ["Consolidación de carga LCL para volúmenes menores.", "Contenedores exclusivos FCL.", "Vuelos directos o con escalas estratégicas."]
+            },
+            {
+              title: "Acompañamiento",
+              items: ["Trazabilidad de tu embarque.", "Gestión de documentación de transporte (BL, AWB, CRT)."]
+            }
+          ],
+          importantNote: "Cotizaciones sujetas a disponibilidad de espacio y tarifas vigentes."
         },
         {
+          id: "aduanas",
           title: "Gestión Aduanera",
-          description:
-            "Asesoramiento ágil en normativas y documentación de comercio exterior.",
+          subtitle: "DESPACHOS & NORMATIVAS",
+          description: "Asesoramiento ágil en normativas y documentación de comercio exterior.",
+          icon: "FileCheck",
+          mainFeatures: ["Clasificación Arancelaria", "Despachos Import/Export", "Certificados de Origen"],
+          targetAudience: "Empresas que buscan evitar multas, demoras y sobrecostos en la Aduana.",
+          details: [
+            {
+              title: "¿Qué trabajamos?",
+              items: ["Anticipamos los requisitos legales antes del embarque.", "Coordinación de inspecciones físicas."]
+            },
+            {
+              title: "Minimización de riesgos",
+              items: ["Análisis técnico aduanero para correcta tributación.", "Liberación ágil de la mercadería."]
+            }
+          ],
+          importantNote: "Recomendamos consultar normativas antes de confirmar cualquier compra."
         },
         {
+          id: "integrales",
           title: "Servicios Integrales",
-          description:
-            "Coordinación puerta a puerta, consolidación de cargas y seguros de carga.",
+          subtitle: "PUERTA A PUERTA",
+          description: "Coordinación puerta a puerta, consolidación de cargas y seguros de carga.",
+          icon: "Briefcase",
+          mainFeatures: ["Logística Door-to-Door", "Seguros Internacionales", "Almacenaje en destino"],
+          targetAudience: "Clientes que prefieren delegar toda la operativa logística en un solo proveedor de confianza.",
+          details: [
+            {
+              title: "Solución Llave en Mano",
+              items: ["Retiramos en fábrica del proveedor y entregamos en tu depósito.", "Cobertura de riesgos con seguros Todo Riesgo."]
+            },
+            {
+              title: "Beneficios",
+              items: ["Un único punto de contacto.", "Control total sin tener que coordinar múltiples actores."]
+            }
+          ],
+          importantNote: "Servicio altamente personalizado según las necesidades de tu supply chain."
         },
       ],
     },
@@ -381,24 +453,84 @@ export const translations: Record<Locale, Messages> = {
         "Modular solutions to import and export with visibility at every stage of the process.",
       items: [
         {
-          title: "Import & Export Solutions",
-          description:
-            "Trading and tailored B2B solutions for SMEs and entrepreneurs.",
+          id: "import-export",
+          title: "Import & Export",
+          subtitle: "TRADING & B2B",
+          description: "Trading and tailored B2B solutions for SMEs and entrepreneurs.",
+          icon: "Globe2",
+          mainFeatures: ["Supplier Sourcing", "International Negotiation", "Feasibility Analysis"],
+          targetAudience: "Entrepreneurs or companies looking to import for the first time or improve purchasing conditions.",
+          details: [
+            {
+              title: "What we solve",
+              items: ["We avoid unnecessary intermediaries.", "We validate factories at origin (e.g., China)."]
+            },
+            {
+              title: "Methodology",
+              items: ["Comprehensive cost study (door-to-door).", "Sample and certification management."]
+            }
+          ],
+          importantNote: "We evaluate the total cost before making any purchase at origin."
         },
         {
+          id: "transporte",
           title: "International Transport",
-          description:
-            "FCL / LCL, Air and Road freight with real-time tracking.",
+          subtitle: "FCL / LCL & MULTIMODAL",
+          description: "FCL / LCL, Air and Road freight with real-time tracking.",
+          icon: "Ship",
+          mainFeatures: ["Sea Freight (FCL/LCL)", "Urgent Air Freight", "Regional Road Freight"],
+          targetAudience: "Companies needing to move cargo with competitive rates and efficient routes.",
+          details: [
+            {
+              title: "Transport options",
+              items: ["LCL cargo consolidation for smaller volumes.", "Exclusive FCL containers.", "Direct flights or strategic layovers."]
+            },
+            {
+              title: "Support",
+              items: ["Tracking of your shipment.", "Transport documentation management (BL, AWB, CRT)."]
+            }
+          ],
+          importantNote: "Quotes are subject to space availability and current rates."
         },
         {
+          id: "aduanas",
           title: "Customs Management",
-          description:
-            "Agile advisory on regulations and foreign trade documentation.",
+          subtitle: "CLEARANCE & REGULATIONS",
+          description: "Agile advisory on regulations and foreign trade documentation.",
+          icon: "FileCheck",
+          mainFeatures: ["Tariff Classification", "Import/Export Clearance", "Certificates of Origin"],
+          targetAudience: "Companies looking to avoid fines, delays, and extra costs at Customs.",
+          details: [
+            {
+              title: "What we do",
+              items: ["We anticipate legal requirements before shipment.", "Coordination of physical inspections."]
+            },
+            {
+              title: "Risk minimization",
+              items: ["Technical customs analysis for correct taxation.", "Agile release of goods."]
+            }
+          ],
+          importantNote: "We recommend consulting regulations before confirming any purchase."
         },
         {
+          id: "integrales",
           title: "Comprehensive Services",
-          description:
-            "Door-to-door coordination, cargo consolidation, and cargo insurance.",
+          subtitle: "DOOR TO DOOR",
+          description: "Door-to-door coordination, cargo consolidation, and cargo insurance.",
+          icon: "Briefcase",
+          mainFeatures: ["Door-to-Door Logistics", "International Insurance", "Destination Warehousing"],
+          targetAudience: "Clients who prefer to delegate all logistics operations to a single trusted provider.",
+          details: [
+            {
+              title: "Turnkey Solution",
+              items: ["We pick up at the supplier's factory and deliver to your warehouse.", "Risk coverage with All-Risk insurance."]
+            },
+            {
+              title: "Benefits",
+              items: ["A single point of contact.", "Total control without having to coordinate multiple actors."]
+            }
+          ],
+          importantNote: "Highly personalized service according to your supply chain needs."
         },
       ],
     },
@@ -553,24 +685,84 @@ export const translations: Record<Locale, Messages> = {
         "Soluções modulares para importar e exportar com visibilidade em cada etapa.",
       items: [
         {
+          id: "import-export",
           title: "Importação & Exportação",
-          description:
-            "Trading e soluções B2B sob medida para PMEs e empreendedores.",
+          subtitle: "TRADING & B2B",
+          description: "Trading e soluções B2B sob medida para PMEs e empreendedores.",
+          icon: "Globe2",
+          mainFeatures: ["Busca de Fornecedores", "Negociação Internacional", "Análise de Viabilidade"],
+          targetAudience: "Empreendedores ou empresas que desejam importar pela primeira vez ou melhorar suas condições de compra.",
+          details: [
+            {
+              title: "O que resolvemos",
+              items: ["Evitamos intermediários desnecessários.", "Validamos fábricas na origem (ex. China)."]
+            },
+            {
+              title: "Metodologia",
+              items: ["Estudo completo de custos (porta a porta).", "Gestão de amostras e certificações."]
+            }
+          ],
+          importantNote: "Avaliamos o custo total antes de realizar qualquer compra na origem."
         },
         {
+          id: "transporte",
           title: "Transporte Internacional",
-          description:
-            "FCL / LCL, Aéreo e Rodoviário com rastreamento em tempo real.",
+          subtitle: "FCL / LCL & MULTIMODAL",
+          description: "FCL / LCL, Aéreo e Rodoviário com rastreamento em tempo real.",
+          icon: "Ship",
+          mainFeatures: ["Frete Marítimo (FCL/LCL)", "Frete Aéreo Urgente", "Transporte Rodoviário"],
+          targetAudience: "Empresas que precisam movimentar cargas com tarifas competitivas e rotas eficientes.",
+          details: [
+            {
+              title: "Opções de transporte",
+              items: ["Consolidação LCL para volumes menores.", "Contêineres exclusivos FCL.", "Voos diretos ou com escalas estratégicas."]
+            },
+            {
+              title: "Acompanhamento",
+              items: ["Rastreabilidade do seu embarque.", "Gestão de documentação de transporte (BL, AWB, CRT)."]
+            }
+          ],
+          importantNote: "Cotações sujeitas à disponibilidade de espaço e tarifas vigentes."
         },
         {
+          id: "aduanas",
           title: "Gestão Aduaneira",
-          description:
-            "Assessoria ágil em normas e documentação de comércio exterior.",
+          subtitle: "DESPACHOS & NORMAS",
+          description: "Assessoria ágil em normas e documentação de comércio exterior.",
+          icon: "FileCheck",
+          mainFeatures: ["Classificação Tarifária", "Despachos de Importação/Exportação", "Certificados de Origem"],
+          targetAudience: "Empresas que buscam evitar multas, atrasos e custos extras na Alfândega.",
+          details: [
+            {
+              title: "O que fazemos",
+              items: ["Antecipamos requisitos legais antes do embarque.", "Coordenação de inspeções físicas."]
+            },
+            {
+              title: "Minimização de riscos",
+              items: ["Análise técnica aduaneira para tributação correta.", "Liberação ágil da mercadoria."]
+            }
+          ],
+          importantNote: "Recomendamos consultar as normas antes de confirmar qualquer compra."
         },
         {
+          id: "integrales",
           title: "Serviços Integrais",
-          description:
-            "Coordenação porta a porta, consolidação de cargas e seguro de carga.",
+          subtitle: "PORTA A PORTA",
+          description: "Coordenação porta a porta, consolidação de cargas e seguro de carga.",
+          icon: "Briefcase",
+          mainFeatures: ["Logística Door-to-Door", "Seguros Internacionais", "Armazenamento no Destino"],
+          targetAudience: "Clientes que preferem delegar toda a operação logística a um único fornecedor de confiança.",
+          details: [
+            {
+              title: "Solução Chave na Mão",
+              items: ["Retiramos na fábrica do fornecedor e entregamos no seu depósito.", "Cobertura de riscos com seguro Contra Todos os Riscos."]
+            },
+            {
+              title: "Benefícios",
+              items: ["Um único ponto de contato.", "Controle total sem precisar coordenar vários atores."]
+            }
+          ],
+          importantNote: "Serviço altamente personalizado de acordo com as necessidades da sua supply chain."
         },
       ],
     },
