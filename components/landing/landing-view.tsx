@@ -315,10 +315,26 @@ function ServicesSection() {
       style={{ background: "var(--muted)" }}
     >
       <style>{`
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
+        .perspective-1000 { 
+          perspective: 1000px; 
+          -webkit-perspective: 1000px; 
+        }
+        .transform-style-3d { 
+          transform-style: preserve-3d; 
+          -webkit-transform-style: preserve-3d; 
+        }
+        .backface-hidden { 
+          backface-visibility: hidden; 
+          -webkit-backface-visibility: hidden; 
+        }
+        .rotate-y-180 { 
+          transform: rotateY(180deg); 
+          -webkit-transform: rotateY(180deg); 
+        }
+        .rotate-y-0 {
+          transform: rotateY(0deg); 
+          -webkit-transform: rotateY(0deg);
+        }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
@@ -361,7 +377,7 @@ function ServicesSection() {
                 >
                   
                   {/* === FRENTE DE LA TARJETA (FRONT) === */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden bg-card border border-border rounded-3xl p-8 flex flex-col overflow-hidden transition-colors group-hover:border-primary/20">
+                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-0 z-20 bg-card border border-border rounded-3xl p-8 flex flex-col overflow-hidden transition-colors group-hover:border-primary/20">
                      {/* Fondo decorativo sutil */}
                      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
                      
@@ -404,7 +420,7 @@ function ServicesSection() {
                   </div>
 
                   {/* === DORSO DE LA TARJETA (BACK) === */}
-                  <div className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-foreground border border-primary/30 rounded-3xl p-8 flex flex-col overflow-hidden shadow-2xl`}>
+                  <div className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 z-10 bg-foreground border border-primary/30 rounded-3xl p-8 flex flex-col overflow-hidden shadow-2xl`}>
                       {/* Título Dorso + Botón Cerrar Superior */}
                       <div className="flex items-center justify-between mb-4 border-b border-background/10 pb-4">
                          <h3 className="font-display font-bold text-lg text-background">FICHA OPERATIVA</h3>
