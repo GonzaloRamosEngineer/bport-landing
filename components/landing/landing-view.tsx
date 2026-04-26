@@ -476,7 +476,7 @@ function ServicesSection() {
 
                           {/* 2. Botón Inscribirme (Principal) */}
                           <a
-                              href={getWhatsAppUrl(locale)}
+                              href={getWhatsAppUrl(locale, t.whatsappServicePrefill(plan.title))}
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()} 

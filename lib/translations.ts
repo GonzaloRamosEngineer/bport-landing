@@ -128,6 +128,7 @@ export type Messages = {
     labelShort: string;
   };
   whatsappPrefill: string;
+  whatsappServicePrefill: (serviceName: string) => string;
 };
 
 export const translations: Record<Locale, Messages> = {
@@ -361,7 +362,9 @@ export const translations: Record<Locale, Messages> = {
       labelShort: "WhatsApp",
     },
     whatsappPrefill:
-      "Hola BPORT Logistics, quiero consultar por mis envíos.",
+      "Hola BPORT Logistics, vengo desde la web y tengo una consulta.",
+    whatsappServicePrefill: (serviceName) =>
+      `Hola BPORT Logistics, vengo desde la web y estoy interesado en el servicio de ${serviceName}. Quisiera más información.`,
   },
 
   en: {
@@ -593,7 +596,9 @@ export const translations: Record<Locale, Messages> = {
       labelShort: "WhatsApp",
     },
     whatsappPrefill:
-      "Hello BPORT Logistics, I would like to inquire about my shipments.",
+      "Hello BPORT Logistics, I'm coming from the website and have a query.",
+    whatsappServicePrefill: (serviceName) =>
+      `Hello BPORT Logistics, I'm coming from the website and I am interested in the ${serviceName} service. I would like more information.`,
   },
 
   pt: {
@@ -826,7 +831,9 @@ export const translations: Record<Locale, Messages> = {
       labelShort: "WhatsApp",
     },
     whatsappPrefill:
-      "Olá BPORT Logistics, gostaria de consultar sobre meus envios.",
+      "Olá BPORT Logistics, venho do site e tenho uma dúvida.",
+    whatsappServicePrefill: (serviceName) =>
+      `Olá BPORT Logistics, venho do site e estou interessado no serviço de ${serviceName}. Gostaria de mais informações.`,
   },
 };
 
