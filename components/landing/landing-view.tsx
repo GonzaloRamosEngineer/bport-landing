@@ -14,7 +14,7 @@ import {
   Star,
   CheckCircle2,
 } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,7 +25,7 @@ import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { LanguageProvider, useLanguage } from "@/components/i18n/language-context";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getWhatsAppUrl } from "@/lib/site";
-
+import { ReactLenis } from "lenis/react";
 const SERVICE_ICONS = [Package, Globe2, FileCheck, Building2] as const;
 const REVIEW_RATINGS = [5, 5, 5] as const;
 
@@ -43,213 +43,145 @@ const stagger = {
 };
 
 
-function CanvasHeroStage() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    let animationFrameId: number;
-    let time = 0;
-    
-    const resizeInfo = { width: 0, height: 0 };
-    const handleResize = () => {
-      const parent = canvas.parentElement;
-      if (parent) {
-        const dpr = window.devicePixelRatio || 1;
-        resizeInfo.width = parent.clientWidth;
-        resizeInfo.height = parent.clientHeight;
-        canvas.width = resizeInfo.width * dpr;
-        canvas.height = resizeInfo.height * dpr;
-        ctx.scale(dpr, dpr);
-        canvas.style.width = resizeInfo.width + 'px';
-        canvas.style.height = resizeInfo.height + 'px';
-      }
-    };
-    
-    handleResize();
-    window.addEventListener('resize', handleResize);
 
-    const draw = () => {
-      ctx.clearRect(0, 0, resizeInfo.width, resizeInfo.height);
-      time += 0.005;
-      
-      const width = resizeInfo.width;
-      const height = resizeInfo.height;
-      const centerY = height * 0.5;
-
-      ctx.beginPath();
-      ctx.moveTo(0, centerY);
-      
-      for(let x = 0; x < width; x++) {
-        const y = centerY + Math.sin(x * 0.004 + time) * 30 + Math.cos(x * 0.008 + time * 1.5) * 20;
-        ctx.lineTo(x, y);
-      }
-      
-      ctx.strokeStyle = 'rgba(47, 143, 131, 0.4)';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      
-      ctx.beginPath();
-      ctx.moveTo(0, centerY);
-      for(let x = 0; x < width; x++) {
-        const y = centerY + Math.sin(x * 0.005 - time) * 40;
-        ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle = 'rgba(22, 50, 79, 0.3)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      animationFrameId = requestAnimationFrame(draw);
-    };
-    
-    draw();
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-screen mix-blend-plus-lighter" />;
-}
 
 /* ─── Hero ────────────────────────────────────────────────────────── */
-function HeroSection() {
-  const { t, locale } = useLanguage();
+function LogisticsRoutesBackground() {
+  const routes = [
+    { id: 1, d: "M-100,150 L300,150 Q350,150 350,200 L350,600 Q350,650 400,650 L1540,650", duration: 15, delay: 0, color: "#d42f7a" },
+    { id: 2, d: "M1540,250 L1100,250 Q1050,250 1050,300 L1050,550 Q1050,600 1000,600 L-100,600", duration: 18, delay: 2, color: "#2f8f83" },
+    { id: 3, d: "M200,900 L200,500 Q200,450 250,450 L800,450 Q850,450 850,400 L850,-100", duration: 12, delay: 1, color: "#e0603a" },
+    { id: 4, d: "M1200,-100 L1200,350 Q1200,400 1250,400 L1540,400", duration: 8, delay: 3, color: "#16324f" },
+    { id: 5, d: "M-100,750 L600,750 Q650,750 650,700 L650,-100", duration: 14, delay: 0.5, color: "#d42f7a" }
+  ];
 
   return (
-    <section className="relative overflow-hidden border-b border-border/60 bg-background">
-      {/* Mesh gradient backdrop */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% -5%, rgba(22, 50, 79,0.10) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 85% 60%, rgba(47, 143, 131,0.07) 0%, transparent 60%)",
-        }}
-      />
-      {/* Subtle grid */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-30"
-        aria-hidden
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #e3e0db 1px, transparent 1px), linear-gradient(to bottom, #e3e0db 1px, transparent 1px)",
-          backgroundSize: "3.5rem 3.5rem",
-          maskImage:
-            "radial-gradient(ellipse 70% 55% at 50% 0%, #000 30%, transparent)",
-        }}
-      />
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <svg className="w-full h-full opacity-40" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+        {routes.map((r) => (
+          <g key={r.id}>
+            {/* Base Track */}
+            <path
+              d={r.d}
+              stroke="currentColor"
+              className="text-muted-foreground/20"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Moving Cargo (Pulse) */}
+            <motion.path
+              d={r.d}
+              stroke={r.color}
+              strokeWidth="3"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              pathLength={100}
+              strokeDasharray="6 100"
+              initial={{ strokeDashoffset: 106 }}
+              animate={{ strokeDashoffset: -6 }}
+              transition={{
+                duration: r.duration,
+                repeat: Infinity,
+                ease: "linear",
+                delay: r.delay,
+              }}
+            />
+          </g>
+        ))}
+      </svg>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50" />
+    </div>
+  );
+}
 
-      
-      <div className="relative mx-auto w-full max-w-6xl px-4 pb-28 pt-24 sm:px-6 sm:pb-36 sm:pt-32 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+function HeroSection() {
+  const { t, locale } = useLanguage();
+  const { scrollY } = useScroll();
+  const parallax1 = useTransform(scrollY, [0, 1000], [0, -100]);
+  const parallax2 = useTransform(scrollY, [0, 1000], [0, -150]);
+
+  return (
+    <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-center border-b border-border/60">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          src="/VideoPresentacion.mov"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-[#0d0d12]/60" />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+        <motion.div
+          variants={stagger.container}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center"
+        >
+          {/* Trust badge */}
+          <motion.div variants={stagger.item} className="mb-6 inline-flex">
+            <span className="stat-chip bg-white/10 text-white border-white/20 backdrop-blur-md">
+              {t.hero.trustBadge}
+            </span>
+          </motion.div>
+
+          {/* Eyebrow */}
+          <motion.p variants={stagger.item} className="eyebrow mb-5 text-white/90 justify-center">
+            {t.hero.eyebrow}
+          </motion.p>
+
+          {/* Headline */}
+          <motion.h1
+            variants={stagger.item}
+            className="font-display text-balance text-5xl tracking-tight text-white sm:text-6xl lg:text-7xl lg:leading-[1.05]"
+          >
+            {t.hero.title}{" "}
+            <span className="text-gradient block">{t.hero.titleHighlight}</span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            variants={stagger.item}
+            className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg"
+          >
+            {t.hero.subtitle}
+          </motion.p>
+
+          {/* CTAs */}
           <motion.div
-            className="max-w-2xl text-left"
-            variants={stagger.container}
-            initial="hidden"
-            animate="show"
+            variants={stagger.item}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
           >
-            {/* Trust badge */}
-            <motion.div variants={stagger.item} className="mb-6 inline-flex">
-              <span className="stat-chip">
-                {t.hero.trustBadge}
-              </span>
-            </motion.div>
-
-            {/* Eyebrow */}
-            <motion.p variants={stagger.item} className="eyebrow mb-5">
-              {t.hero.eyebrow}
-            </motion.p>
-
-            {/* Headline */}
-            <motion.h1
-              variants={stagger.item}
-              className="font-display text-balance text-5xl tracking-tight text-foreground sm:text-6xl lg:text-7xl lg:leading-[1.05]"
+            <motion.a
+              href={getWhatsAppUrl(locale)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-sm shadow-xl shadow-primary/20"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
-              {t.hero.title}{" "}
-              <span className="text-gradient block">{t.hero.titleHighlight}</span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              variants={stagger.item}
-              className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
-            >
-              {t.hero.subtitle}
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              variants={stagger.item}
-              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:gap-4 lg:items-center"
-            >
-              <motion.a
-                href={getWhatsAppUrl(locale)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary text-sm shadow-card"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              >
-                {t.hero.ctaWhatsApp}
-                <ArrowRight className="size-4 ml-1" aria-hidden />
-              </motion.a>
-              <a href="#proceso" className="btn-ghost text-sm">
-                {t.hero.ctaServices}
-              </a>
-            </motion.div>
+              {t.hero.ctaWhatsApp}
+              <ArrowRight className="size-4 ml-2" aria-hidden />
+            </motion.a>
+            <a href="#proceso" className="btn-ghost text-white border-white/30 hover:bg-white/10 hover:text-white text-sm backdrop-blur-sm">
+              {t.hero.ctaServices}
+            </a>
           </motion.div>
-
-          {/* Visual Stage */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block relative"
-          >
-             <div className="visual-stage aspect-square max-h-[560px]">
-                <div className="scan-lines"></div>
-                <CanvasHeroStage />
-                
-                {/* SVG Route */}
-                <svg className="route-svg" viewBox="0 0 400 400" preserveAspectRatio="none">
-                  <path d="M 50 350 C 150 350, 250 50, 350 50" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeDasharray="6 6" />
-                  <circle cx="50" cy="350" r="4" fill="#d42f7a" />
-                  <circle cx="350" cy="50" r="4" fill="#2db8b0" />
-                </svg>
-
-                {/* Floating Elements */}
-                <div className="absolute top-[20%] right-[10%] floating-panel" style={{ animation: 'floatBlob 6s ease-in-out infinite' }}>
-                   <div className="text-xs text-white/70 mb-1">Status</div>
-                   <div className="flex items-center gap-2">
-                     <span className="w-2 h-2 rounded-full bg-green-400"></span>
-                     <span className="font-medium text-sm">On time</span>
-                   </div>
-                </div>
-
-                <div className="absolute bottom-[25%] left-[10%] floating-panel" style={{ animation: 'floatBlob 8s ease-in-out infinite reverse' }}>
-                   <div className="flex gap-3 items-center">
-                     <div className="brand-mark shrink-0"></div>
-                     <div>
-                       <div className="font-display font-medium leading-none mb-1 text-base tracking-tight">BPORT</div>
-                       <div className="text-[10px] uppercase tracking-wider text-white/60">Logistics Corp.</div>
-                     </div>
-                   </div>
-                </div>
-             </div>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom fade */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-background to-transparent"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10"
         aria-hidden
       />
     </section>
@@ -379,22 +311,30 @@ function ServicesSection() {
         >
           {t.services.items.map((s, i) => {
             const Icon = SERVICE_ICONS[i];
+            const indexFormatted = String(i + 1).padStart(2, "0");
             return (
               <motion.div
                 key={`${locale}-svc-${i}`}
                 variants={stagger.item}
-                className="card-elevated flex flex-col gap-5 p-6"
+                className="card-elevated group relative overflow-hidden p-6"
               >
-                <div className="icon-box">
-                  <Icon className="size-5 stroke-[1.5]" aria-hidden />
+                {/* Numeric Watermark */}
+                <div className="absolute -top-4 -right-2 font-display text-8xl text-primary/5 pointer-events-none select-none transition-all duration-500 group-hover:scale-110 group-hover:text-primary/10">
+                  {indexFormatted}
                 </div>
-                <div>
-                  <h3 className="font-display text-base font-semibold text-foreground">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {s.description}
-                  </p>
+
+                <div className="relative z-10 flex flex-col gap-5 h-full">
+                  <div className="icon-box">
+                    <Icon className="size-5 stroke-[1.5]" aria-hidden />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-base font-semibold text-foreground">
+                      {s.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {s.description}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             );
@@ -864,7 +804,8 @@ function ProcessSection() {
   const { t } = useLanguage();
   return (
     <MotionSection id="proceso" className="py-24 bg-background border-b border-border/50 overflow-hidden relative">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <LogisticsRoutesBackground />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="mb-16 max-w-3xl">
           <span className="eyebrow mb-4">{t.process.kicker}</span>
           <h2 className="text-3xl md:text-5xl font-display tracking-tight text-foreground mb-6">
@@ -978,9 +919,11 @@ function LandingBody() {
 /* ─── Root ────────────────────────────────────────────────────────── */
 export function LandingView() {
   return (
-    <LanguageProvider>
-      <Header />
-      <LandingBody />
-    </LanguageProvider>
+    <ReactLenis root options={{ lerp: 0.07, duration: 1.2 }}>
+      <LanguageProvider>
+        <Header />
+        <LandingBody />
+      </LanguageProvider>
+    </ReactLenis>
   );
 }
