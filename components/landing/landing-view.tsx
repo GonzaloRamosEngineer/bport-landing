@@ -17,6 +17,9 @@ import {
   Briefcase,
   X,
   ArrowLeft,
+  Zap,
+  ArrowUp,
+  Mail
 } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 
@@ -730,75 +733,142 @@ function ContactSection() {
 
 /* ─── Footer ──────────────────────────────────────────────────────── */
 function Footer() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const year = new Date().getFullYear();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer
-      className="border-t border-border/40"
-      style={{ background: "#0d0d12", color: "#a1a09e" }}
-    >
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-3">
-          {/* Brand */}
-          <div className="space-y-4">
+    <footer className="bg-[#0d0d12] text-white pt-20 pb-10 px-4 relative overflow-hidden border-t border-white/10">
+      
+      {/* Círculo decorativo gigante de fondo */}
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="mx-auto max-w-6xl relative z-10">
+        
+        <div className="grid md:grid-cols-4 gap-12 mb-16">
+          
+          {/* Columna 1: Marca y Descripción */}
+          <div className="space-y-6 md:col-span-2">
             <Image
               src="/bport-logo.png"
-              alt=""
-              width={120}
-              height={40}
-              className="h-8 w-auto object-contain brightness-0 invert opacity-80"
+              alt="BPORT Logistics Logo"
+              width={160}
+              height={50}
+              className="h-10 w-auto object-contain brightness-0 invert opacity-90"
             />
-            <p className="text-sm leading-relaxed" style={{ color: "#6b6966" }}>
+            <p className="text-white/60 text-sm leading-relaxed max-w-sm font-body">
               {t.footer.tagline}
             </p>
+            
+            {/* Redes Sociales */}
+            <div className="flex items-center space-x-3 pt-2">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white text-white/40 transition-all duration-300">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.407-.06 4.123-.06h.08v.001zm0 2.162c-2.603 0-2.917.01-3.947.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.947s.01 2.917.058 3.947c.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.947-.058.975-.045 1.504-.207 1.857-.344.467-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.047-1.023.058-1.351.058-3.947s-.01-2.917-.058-3.947c-.045-.975-.207-1.504-.344-1.857-.182-.466-.399-.8-.748-1.15-.35-.35-.683-.566-1.15-.748-.353-.137-.882-.3-1.857-.344-1.02-.049-1.355-.06-3.947-.06h-.081zm6.268 5.62v-.025c.006.113.01.228.01.344a5.855 5.855 0 01-5.855 5.855 5.855 5.855 0 01-5.856-5.855 5.855 5.855 0 015.856-5.855c.116 0 .23.004.343.01h.026a6.11 6.11 0 00-6.225 6.095 6.11 6.11 0 006.108 6.108 6.11 6.11 0 006.108-6.108c0-3.15-2.408-5.74-5.46-6.07l-.053-.005zm1.586-2.185a1.44 1.44 0 110 2.88 1.44 1.44 0 010-2.88z" clipRule="evenodd" />
+                </svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white text-white/40 transition-all duration-300">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
+                </svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white text-white/40 transition-all duration-300">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                </svg>
+              </a>
+            </div>
           </div>
 
-          {/* Links */}
-          <nav aria-label="Footer navigation" className="flex flex-col gap-2 text-sm">
-            {[
-              ["#nosotros", t.nav.about],
-              ["#servicios", t.nav.services],
-              ["#resenas", t.nav.reviews],
-              ["#contacto", t.nav.contact],
-            ].map(([href, label]) => (
-              <a
-                key={href}
-                href={href}
-                className="transition-colors hover:text-white"
-                style={{ color: "#a1a09e" }}
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
+          {/* Columna 2: Navegación */}
+          <div className="space-y-4">
+            <h3 className="font-bold text-lg text-white mb-4">{t.nav.sections}</h3>
+            <nav className="flex flex-col gap-3">
+              {[
+                ["#nosotros", t.nav.about],
+                ["#servicios", t.nav.services],
+                ["#resenas", t.nav.reviews],
+                ["#contacto", t.nav.contact],
+              ].map(([href, label]) => (
+                <a 
+                  key={href}
+                  href={href} 
+                  className="text-white/50 hover:text-white text-sm transition-colors group flex items-center gap-2"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-primary transition-all duration-300 rounded-full"></span>
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
 
-          {/* Contact */}
-          <div className="space-y-2 text-sm" style={{ color: "#6b6966" }}>
-            <p>Minas 1543/502</p>
-            <p>Montevideo, Uruguay</p>
-            <a
-              href="mailto:info@bportlogistics.com"
-              className="block transition-colors hover:text-white"
-              style={{ color: "#a1a09e" }}
-            >
-              info@bportlogistics.com
-            </a>
-            <a
-              href="https://bportlogistics.com"
-              className="block transition-colors hover:text-white"
-              style={{ color: "#a1a09e" }}
-            >
-              bportlogistics.com
-            </a>
+          {/* Columna 3: Contacto Directo */}
+          <div className="space-y-4">
+            <h3 className="font-bold text-white text-lg mb-4">{t.nav.contact}</h3>
+            <ul className="space-y-4 text-sm text-white/60">
+              <li className="flex items-start space-x-3">
+                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
+                <span>
+                  Minas 1543/502<br />
+                  Montevideo, Uruguay
+                </span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Mail size={18} className="text-primary shrink-0" />
+                <a href="mailto:info@bportlogistics.com" className="hover:text-white transition-colors">
+                  info@bportlogistics.com
+                </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Globe2 size={18} className="text-primary shrink-0" />
+                <a href="https://bportlogistics.com" className="hover:text-white transition-colors">
+                  bportlogistics.com
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div
-          className="mt-12 border-t pt-8 text-xs"
-          style={{ borderColor: "#1f1e1c", color: "#4a4845" }}
-        >
-          {t.footer.rights(year)}
+        {/* Barra Inferior */}
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <p className="text-white/40 text-xs">
+              {t.footer.rights(year)}
+            </p>
+            
+            {/* --- FIRMA DIGITAL MATCH GLOBAL --- */}
+            <a 
+              href="https://www.digitalmatchglobal.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-[#2563EB]/50 transition-all duration-500 overflow-hidden"
+            >
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-[#2563EB]/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                
+                <span className="text-[10px] text-white/40 uppercase tracking-wider font-medium group-hover:text-white/70 transition-colors">Made by</span>
+                
+                <span className="text-xs font-bold bg-linear-to-r from-[#2563EB] to-[#6D5DFE] bg-clip-text text-transparent transition-all duration-300 group-hover:brightness-125">
+                    DigitalMatchGlobal
+                </span>
+                
+                <Zap size={10} className="text-white/30 group-hover:text-[#6D5DFE] transition-all duration-300" />
+            </a>
+          </div>
+          
+          <div className="flex items-center gap-6">
+              <Button 
+                onClick={scrollToTop}
+                variant="ghost"
+                size="icon"
+                className="rounded-full bg-white/5 border border-white/10 text-white/60 hover:bg-primary hover:text-white hover:border-primary transition-all shadow-lg"
+              >
+                <ArrowUp size={18} />
+              </Button>
+          </div>
         </div>
       </div>
     </footer>
