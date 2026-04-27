@@ -195,7 +195,7 @@ export const translations: Record<Locale, Messages> = {
       diffTitle: "Por qué elegirnos como tu partner",
       diffItems: [
         { title: "Atención 100% personalizada.", description: "Para nosotros, no sos un número ni una operación más." },
-        { title: "Experiencia operativa real.", description: "No te vendemos humo: entendemos tu ejecución, tus tiempos y tus riesgos." },
+        { title: "Experiencia operativa real.", description: "Entendemos tu ejecución, tus tiempos y tus riesgos." },
         { title: "Nos enfocamos en simplificarte la vida.", description: "Menos complejidad para vos, más claridad y mejores decisiones de negocio." }
       ],
     },
@@ -220,7 +220,7 @@ export const translations: Record<Locale, Messages> = {
       bullet1:
         "Entendemos tu contexto primero, el volumen después.",
       bullet2:
-        "Comunicate directo con nuestros especialistas, sin burocracia.",
+        "Comunicate directo con nuestros especialistas.",
       yearLabel: "Año de inicio",
       statLabel: "Años de experiencia",
       statValue: "+25",
@@ -345,7 +345,7 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contacto",
       title: "Hablemos de tu próximo movimiento",
       subtitle:
-        "Completá el formulario o escribinos por WhatsApp al +598 92 330925. Respondemos con prioridad a consultas comerciales y operativas.",
+        "Completá el formulario o llamanos al +598 92 330925. Respondemos con prioridad a consultas comerciales y operativas.",
       officeLabel: "Oficina",
       officeAddress: "Minas 1543/502 – Zona Puerto, Montevideo, Uruguay",
       emailLabel: "Email",
@@ -472,7 +472,7 @@ export const translations: Record<Locale, Messages> = {
       bullet1:
         "We understand your context first, your volume second.",
       bullet2:
-        "Communicate directly with our specialists, without bureaucracy.",
+        "Communicate directly with our specialists.",
       yearLabel: "Year founded",
       statLabel: "Years of experience",
       statValue: "+25",
@@ -723,7 +723,7 @@ export const translations: Record<Locale, Messages> = {
       bullet1:
         "Entendemos seu contexto primeiro, o volume depois.",
       bullet2:
-        "Comunique-se direto com nossos especialistas, sem burocracia.",
+        "Comunique-se direto com nossos especialistas.",
       yearLabel: "Ano de fundação",
       statLabel: "Anos de experiência",
       statValue: "+25",
