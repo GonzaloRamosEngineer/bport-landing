@@ -175,7 +175,7 @@ export const translations: Record<Locale, Messages> = {
     process: {
       kicker: "Proceso",
       title: "Una operación clara, ordenada y sin sorpresas para vos.",
-      subtitle: "Diseñamos un método de trabajo claro, ágil y sin burocracia para simplificar cada etapa de tu importación y darte mayor tranquilidad.",
+      subtitle: "Diseñamos un método de trabajo claro y ágil para simplificar cada etapa de tu importación y darte mayor tranquilidad.",
       items: [
         { step: "01", title: "Nos contás qué querés importar", description: "Entendemos tu producto, origen, volumen y el contexto de tu negocio." },
         { step: "02", title: "Diseñamos tu estrategia logística ideal", description: "Buscamos la solución más conveniente para tus tiempos y costos." },
@@ -678,7 +678,7 @@ export const translations: Record<Locale, Messages> = {
     process: {
       kicker: "Processo",
       title: "Uma operação clara, organizada e sem surpresas para você.",
-      subtitle: "Desenhamos um método de trabalho claro, ágil e sem burocracia para simplificar cada etapa da sua importação e dar a você maior tranquilidade.",
+      subtitle: "Desenhamos um método de trabalho claro y ágil para simplificar cada etapa da sua importação e dar a você maior tranquilidade.",
       items: [
         { step: "01", title: "Conte-nos o que você quer importar", description: "Entendemos o seu produto, origem, volume e o contexto do seu negócio." },
         { step: "02", title: "Desenhamos a sua estratégia logística ideal", description: "Buscamos a solução mais conveniente para o seu tempo e os seus custos." },
