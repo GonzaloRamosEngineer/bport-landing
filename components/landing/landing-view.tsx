@@ -151,7 +151,7 @@ function HeroSection() {
           {/* Headline */}
           <motion.h1
             variants={stagger.item}
-            className="font-display text-balance text-5xl tracking-tight text-white sm:text-6xl lg:text-7xl lg:leading-[1.05] drop-shadow-xl"
+            className="font-display text-balance text-4xl tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.05] drop-shadow-xl"
           >
             {t.hero.title}{" "}
             <span className="block drop-shadow-[0_2px_20px_rgba(47,143,131,0.4)]" style={{
@@ -1114,7 +1114,7 @@ function Header() {
 
         {/* Mobile nav pills */}
         <nav
-          className="-mx-1 flex gap-1.5 overflow-x-auto pb-3 md:hidden"
+          className="-mx-1 flex gap-1.5 overflow-x-auto pb-3 md:hidden scrollbar-none"
           aria-label={t.nav.sections}
         >
           {[
@@ -1277,7 +1277,7 @@ function ForWhomSection() {
                       key={i}
                       onClick={() => setActiveTab(i)}
                       className={`
-                        group relative flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 cursor-pointer
+                        group relative flex items-center gap-2 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer
                         ${isActive
                           ? "bg-primary text-white shadow-lg shadow-primary/25"
                           : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/60"
@@ -1285,8 +1285,8 @@ function ForWhomSection() {
                       `}
                     >
                       <Icon className={`size-4 shrink-0 transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"}`} />
-                      <span className="hidden sm:inline">{item.title.replace(".", "")}</span>
-                      <span className="sm:hidden">{item.title.replace(".", "").split(" ").slice(0, 3).join(" ")}…</span>
+                      <span className="hidden md:inline">{item.title.replace(".", "")}</span>
+                      <span className="md:hidden">{item.title.replace(".", "").split(" ").slice(0, 3).join(" ")}</span>
                     </button>
                   );
                 })}
