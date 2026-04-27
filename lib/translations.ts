@@ -109,6 +109,8 @@ export type Messages = {
     emailLabel: string;
     formTitle: string;
     formDescription: string;
+    ctaWhatsAppAlt: string;
+    ctaDiff: string;
     labelName: string;
     placeholderName: string;
     labelCompany: string;
@@ -352,6 +354,8 @@ export const translations: Record<Locale, Messages> = {
       formTitle: "Cotiza sin compromiso",
       formDescription:
         "Cuéntanos sobre tu operación y nos comunicaremos en menos de 24 horas.",
+      ctaWhatsAppAlt: "Prefiero escribir por WhatsApp",
+      ctaDiff: "Empezá tu consulta ahora",
       labelName: "Nombre y Apellido",
       placeholderName: "Tu nombre completo",
       labelCompany: "Empresa (Opcional)",
@@ -604,6 +608,8 @@ export const translations: Record<Locale, Messages> = {
       formTitle: "Quote with no commitment",
       formDescription:
         "Tell us about your operation and we'll get back to you within 24 hours.",
+      ctaWhatsAppAlt: "I prefer to write via WhatsApp",
+      ctaDiff: "Start your inquiry now",
       labelName: "First and Last Name",
       placeholderName: "Your full name",
       labelCompany: "Company (Optional)",
@@ -855,6 +861,8 @@ export const translations: Record<Locale, Messages> = {
       formTitle: "Cotar sem compromisso",
       formDescription:
         "Conte-nos sobre sua operação e retornaremos em menos de 24 horas.",
+      ctaWhatsAppAlt: "Prefiro escrever pelo WhatsApp",
+      ctaDiff: "Comece sua consulta agora",
       labelName: "Nome e Sobrenome",
       placeholderName: "Seu nome completo",
       labelCompany: "Empresa (Opcional)",
