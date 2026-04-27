@@ -26,8 +26,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bportlogistics.com"),
   title: translations[defaultLocale].meta.title,
   description: translations[defaultLocale].meta.description,
+  openGraph: {
+    title: translations[defaultLocale].meta.title,
+    description: translations[defaultLocale].meta.description,
+    url: "https://bportlogistics.com",
+    siteName: "BPORT Logistics",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BPORT Logistics - Conectamos tu carga con el mundo",
+      },
+    ],
+    locale: "es",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: translations[defaultLocale].meta.title,
+    description: translations[defaultLocale].meta.description,
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/icon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({

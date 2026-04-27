@@ -136,24 +136,24 @@ function HeroSection() {
         >
           {/* Trust badge */}
           <motion.div variants={stagger.item} className="mb-6 inline-flex">
-            <span className="stat-chip !text-white !bg-white/10 !border-white/20 backdrop-blur-md">
+            <span className="stat-chip text-white! bg-white/10! border-white/20! backdrop-blur-md">
               {t.hero.trustBadge}
             </span>
           </motion.div>
 
           {/* Eyebrow */}
-          <motion.p variants={stagger.item} className="eyebrow mb-5 !text-white/90 justify-center">
+          <motion.p variants={stagger.item} className="eyebrow mb-5 text-white/90! drop-shadow-md justify-center">
             {t.hero.eyebrow}
           </motion.p>
 
           {/* Headline */}
           <motion.h1
             variants={stagger.item}
-            className="font-display text-balance text-5xl tracking-tight text-white sm:text-6xl lg:text-7xl lg:leading-[1.05]"
+            className="font-display text-balance text-5xl tracking-tight text-white sm:text-6xl lg:text-7xl lg:leading-[1.05] drop-shadow-xl"
           >
             {t.hero.title}{" "}
-            <span className="block" style={{
-              background: 'linear-gradient(135deg, #fff 0%, var(--accent-magenta) 50%, var(--accent) 100%)',
+            <span className="block drop-shadow-[0_2px_20px_rgba(47,143,131,0.4)]" style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, var(--accent) 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -165,7 +165,7 @@ function HeroSection() {
           {/* Subtitle */}
           <motion.p
             variants={stagger.item}
-            className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white/80 sm:text-lg"
+            className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white font-medium drop-shadow-md sm:text-lg"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -187,7 +187,7 @@ function HeroSection() {
               {t.hero.ctaWhatsApp}
               <ArrowRight className="size-4 ml-2" aria-hidden />
             </motion.a>
-            <a href="#proceso" className="btn-ghost !text-white !border-white/40 hover:!bg-white/10 hover:!text-white text-sm backdrop-blur-sm">
+            <a href="#proceso" className="btn-ghost text-white! border-white/40! hover:bg-white/10! hover:text-white! text-sm backdrop-blur-sm">
               {t.hero.ctaServices}
             </a>
           </motion.div>
@@ -409,7 +409,7 @@ function ServicesSection() {
                        <ul className="space-y-4 mb-auto">
                           {plan.mainFeatures?.map((feat, idx) => (
                             <li key={idx} className="flex items-center space-x-3">
-                               <CheckCircle2 size={18} className="text-primary flex-shrink-0" />
+                               <CheckCircle2 size={18} className="text-primary shrink-0" />
                                <span className="text-sm font-medium text-foreground">{feat}</span>
                             </li>
                           ))}
@@ -594,15 +594,49 @@ function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  const validateForm = (formData: FormData) => {
+    const errors: Record<string, string> = {};
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    if (!name || name.trim() === "") {
+      errors.name = t.contact.errors.required;
+    }
+    
+    if (!email || email.trim() === "") {
+      errors.email = t.contact.errors.required;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = t.contact.errors.email;
+    }
+
+    if (!message || message.trim().length < 10) {
+      errors.message = t.contact.errors.minLength;
+    }
+
+    return errors;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg("");
+    setFieldErrors({});
 
     const formData = new FormData(e.currentTarget);
+    const validationErrors = validateForm(formData);
+
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors);
+      setIsSubmitting(false);
+      return;
+    }
+
     const payload = {
       name: formData.get("name"),
+      company: formData.get("company"),
       email: formData.get("email"),
       phone: formData.get("phone"),
       service: formData.get("service"),
@@ -710,7 +744,7 @@ function ContactSection() {
                 <div className="mt-7 flex flex-col items-center justify-center rounded-2xl bg-primary/10 p-8 text-center border border-primary/20">
                   <CheckCircle2 className="size-12 text-primary mb-4" />
                   <h4 className="text-lg font-semibold text-foreground">¡Mensaje enviado!</h4>
-                  <p className="mt-2 text-sm text-white/90! font-medium">{t.contact.successMessage}</p>
+                  <p className="mt-2 text-sm text-muted-foreground font-medium">{t.contact.successMessage}</p>
                   <button 
                     onClick={() => setIsSuccess(false)}
                     className="mt-6 text-sm font-medium text-primary hover:underline underline-offset-4"
@@ -722,29 +756,54 @@ function ContactSection() {
                 <form
                   className="mt-7 space-y-5"
                   onSubmit={handleSubmit}
+                  noValidate
                 >
+                  {/* Row 1: Name & Company */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label
                         htmlFor="name"
                         className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                       >
-                        {t.contact.labelName}
+                        {t.contact.labelName} <span className="text-red-500">*</span>
                       </Label>
                       <Input
                         id="name"
                         name="name"
                         required
                         placeholder={t.contact.placeholderName}
-                        className="rounded-xl border-border bg-background"
+                        className={`rounded-xl bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary ${
+                          fieldErrors.name ? "border-red-500 ring-1 ring-red-500" : "border-border"
+                        }`}
+                      />
+                      {fieldErrors.name && (
+                        <p className="text-xs text-red-500 font-medium animate-in fade-in">{fieldErrors.name}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="company"
+                        className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                      >
+                        {t.contact.labelCompany}
+                      </Label>
+                      <Input
+                        id="company"
+                        name="company"
+                        placeholder={t.contact.placeholderCompany}
+                        className="rounded-xl border-border bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary"
                       />
                     </div>
+                  </div>
+
+                  {/* Row 2: Email & Phone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label
                         htmlFor="email"
                         className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                       >
-                        {t.contact.labelEmail}
+                        {t.contact.labelEmail} <span className="text-red-500">*</span>
                       </Label>
                       <Input
                         id="email"
@@ -752,12 +811,14 @@ function ContactSection() {
                         type="email"
                         required
                         placeholder={t.contact.placeholderEmail}
-                        className="rounded-xl border-border bg-background"
+                        className={`rounded-xl bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary ${
+                          fieldErrors.email ? "border-red-500 ring-1 ring-red-500" : "border-border"
+                        }`}
                       />
+                      {fieldErrors.email && (
+                        <p className="text-xs text-red-500 font-medium animate-in fade-in">{fieldErrors.email}</p>
+                      )}
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label
                         htmlFor="phone"
@@ -770,48 +831,56 @@ function ContactSection() {
                         name="phone"
                         type="tel"
                         placeholder={t.contact.placeholderPhone}
-                        className="rounded-xl border-border bg-background"
+                        className="rounded-xl border-border bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary"
                       />
-                    </div>
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="service"
-                        className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
-                      >
-                        {t.contact.labelService}
-                      </Label>
-                      <select
-                        id="service"
-                        name="service"
-                        className="flex h-10 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        defaultValue=""
-                      >
-                        <option value="" disabled>Seleccionar...</option>
-                        {Object.entries((t.contact.serviceOptions as Record<string, string>) || {}).map(([key, label]) => (
-                          <option key={key} value={label}>{label}</option>
-                        ))}
-                      </select>
                     </div>
                   </div>
 
+                  {/* Row 3: Service */}
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="service"
+                      className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                    >
+                      {t.contact.labelService}
+                    </Label>
+                    <select
+                      id="service"
+                      name="service"
+                      className="flex h-10 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 transition-all"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>Seleccionar...</option>
+                      {Object.entries((t.contact.serviceOptions as Record<string, string>) || {}).map(([key, label]) => (
+                        <option key={key} value={label}>{label}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Row 4: Message */}
                   <div className="space-y-2">
                     <Label
                       htmlFor="message"
                       className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                     >
-                      {t.contact.labelMessage}
+                      {t.contact.labelMessage} <span className="text-red-500">*</span>
                     </Label>
                     <Textarea
                       id="message"
                       name="message"
                       required
                       placeholder={t.contact.placeholderMessage}
-                      className="min-h-[120px] resize-none rounded-xl border-border bg-background"
+                      className={`min-h-[120px] resize-none rounded-xl bg-background transition-all focus-visible:ring-2 focus-visible:ring-primary ${
+                        fieldErrors.message ? "border-red-500 ring-1 ring-red-500" : "border-border"
+                      }`}
                     />
+                    {fieldErrors.message && (
+                      <p className="text-xs text-red-500 font-medium animate-in fade-in">{fieldErrors.message}</p>
+                    )}
                   </div>
                   
                   {errorMsg && (
-                    <p className="text-sm text-red-500">{errorMsg}</p>
+                    <p className="text-sm text-red-500 font-medium">{errorMsg}</p>
                   )}
 
                   <button 
@@ -1122,7 +1191,7 @@ function TrustSection() {
             <div key={i} className="flex flex-col items-center gap-2 p-6 rounded-2xl border border-border/60 bg-background/50 hover:bg-muted/30 transition-colors shadow-sm relative overflow-hidden group">
               <Counter target={stat.target} suffix={stat.suffix} />
               <span className="text-sm text-muted-foreground max-w-[140px] leading-snug">{stat.label}</span>
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}
         </div>

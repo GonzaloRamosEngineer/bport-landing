@@ -111,6 +111,8 @@ export type Messages = {
     formDescription: string;
     labelName: string;
     placeholderName: string;
+    labelCompany: string;
+    placeholderCompany: string;
     labelEmail: string;
     placeholderEmail: string;
     labelPhone: string;
@@ -121,6 +123,11 @@ export type Messages = {
     placeholderMessage: string;
     submit: string;
     successMessage: string;
+    errors: {
+      required: string;
+      email: string;
+      minLength: string;
+    };
   };
   footer: {
     rights: (year: number) => string;
@@ -344,9 +351,11 @@ export const translations: Record<Locale, Messages> = {
       emailLabel: "Email",
       formTitle: "Cotiza sin compromiso",
       formDescription:
-        "Contanos tu operación y te respondemos en menos de 24 hs.",
-      labelName: "Nombre y empresa",
-      placeholderName: "Tu nombre",
+        "Cuéntanos sobre tu operación y nos comunicaremos en menos de 24 horas.",
+      labelName: "Nombre y Apellido",
+      placeholderName: "Tu nombre completo",
+      labelCompany: "Empresa (Opcional)",
+      placeholderCompany: "Tu empresa",
       labelEmail: "Email",
       placeholderEmail: "nombre@empresa.com",
       labelPhone: "Teléfono / WhatsApp (Opcional)",
@@ -363,7 +372,12 @@ export const translations: Record<Locale, Messages> = {
       placeholderMessage:
         "Origen, destino y tipo de carga (si aplica).",
       submit: "Enviar consulta",
-      successMessage: "¡Consulta enviada! Te respondemos a la brevedad.",
+      successMessage: "¡Consulta enviada! Nos pondremos en contacto a la brevedad.",
+      errors: {
+        required: "Este campo es obligatorio",
+        email: "Ingresa un email válido",
+        minLength: "El mensaje debe ser más largo",
+      },
     },
     footer: {
       rights: (year) =>
@@ -590,8 +604,10 @@ export const translations: Record<Locale, Messages> = {
       formTitle: "Quote with no commitment",
       formDescription:
         "Tell us about your operation and we'll get back to you within 24 hours.",
-      labelName: "Name and company",
-      placeholderName: "Your name",
+      labelName: "First and Last Name",
+      placeholderName: "Your full name",
+      labelCompany: "Company (Optional)",
+      placeholderCompany: "Your company",
       labelEmail: "Email",
       placeholderEmail: "name@company.com",
       labelPhone: "Phone / WhatsApp (Optional)",
@@ -609,6 +625,11 @@ export const translations: Record<Locale, Messages> = {
         "Origin, destination, and cargo type (if applicable).",
       submit: "Send inquiry",
       successMessage: "Inquiry sent! We'll get back to you shortly.",
+      errors: {
+        required: "This field is required",
+        email: "Please enter a valid email",
+        minLength: "Message must be longer",
+      },
     },
     footer: {
       rights: (year) => `© ${year} BPORT Logistics. All rights reserved.`,
@@ -833,9 +854,11 @@ export const translations: Record<Locale, Messages> = {
       emailLabel: "E-mail",
       formTitle: "Cotar sem compromisso",
       formDescription:
-        "Conte-nos sobre sua operação e responderemos em até 24 horas.",
-      labelName: "Nome e empresa",
-      placeholderName: "Seu nome",
+        "Conte-nos sobre sua operação e retornaremos em menos de 24 horas.",
+      labelName: "Nome e Sobrenome",
+      placeholderName: "Seu nome completo",
+      labelCompany: "Empresa (Opcional)",
+      placeholderCompany: "Sua empresa",
       labelEmail: "E-mail",
       placeholderEmail: "nome@empresa.com",
       labelPhone: "Telefone / WhatsApp (Opcional)",
@@ -852,7 +875,12 @@ export const translations: Record<Locale, Messages> = {
       placeholderMessage:
         "Origem, destino e tipo de carga (se aplicável).",
       submit: "Enviar consulta",
-      successMessage: "Consulta enviada! Retornaremos em breve.",
+      successMessage: "Consulta enviada! Entraremos em contato em breve.",
+      errors: {
+        required: "Este campo é obrigatório",
+        email: "Insira um e-mail válido",
+        minLength: "A mensagem deve ser mais longa",
+      },
     },
     footer: {
       rights: (year) =>

@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY || 're_xxxxxxxxx');
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, service, message } = body;
+    const { name, company, email, phone, service, message } = body;
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -25,8 +25,12 @@ export async function POST(request: Request) {
         
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
           <tr>
-            <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Nombre / Empresa:</td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Nombre y Apellido:</td>
             <td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Empresa:</td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">${company || 'No especificada'}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
