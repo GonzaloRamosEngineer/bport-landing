@@ -19,7 +19,8 @@ import {
   ArrowLeft,
   Zap,
   ArrowUp,
-  Mail
+  Mail,
+  Loader2,
 } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 
@@ -99,7 +100,7 @@ function LogisticsRoutesBackground() {
           </g>
         ))}
       </svg>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-background/50" />
     </div>
   );
 }
@@ -195,7 +196,7 @@ function HeroSection() {
 
       {/* Bottom fade */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10"
+        className="pointer-events-none absolute inset-0 z-10 bg-linear-to-b from-black/60 via-black/30 to-background"
         aria-hidden
       />
     </section>
@@ -391,7 +392,7 @@ function ServicesSection() {
 
                      <div className="relative z-10 flex flex-col h-full">
                        {/* Icono */}
-                       <div className="icon-box w-14 h-14 mb-6">
+                       <div className="icon-box shrink-0">
                           <IconComp className="size-6 stroke-[1.5]" aria-hidden />
                        </div>
 
@@ -590,6 +591,43 @@ function ReviewsSection() {
 /* ─── Contact ─────────────────────────────────────────────────────── */
 function ContactSection() {
   const { t, locale } = useLanguage();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMsg("");
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      service: formData.get("service"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setIsSuccess(true);
+      (e.target as HTMLFormElement).reset();
+    } catch (err) {
+      setErrorMsg("Ocurrió un error al enviar el mensaje. Intenta nuevamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <MotionSection
@@ -612,7 +650,7 @@ function ContactSection() {
 
             <div className="mt-9 space-y-5 text-sm">
               <div className="flex items-start gap-4">
-                <div className="icon-box mt-0.5 size-9">
+                <div className="icon-box mt-0.5 size-9 shrink-0">
                   <MapPin className="size-4 stroke-[1.5]" aria-hidden />
                 </div>
                 <div>
@@ -626,7 +664,7 @@ function ContactSection() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="icon-box mt-0.5 size-9">
+                <div className="icon-box mt-0.5 size-9 shrink-0">
                   <span className="text-xs font-bold text-primary">@</span>
                 </div>
                 <div>
@@ -635,7 +673,7 @@ function ContactSection() {
                   </p>
                   <a
                     href="mailto:info@bportlogistics.com"
-                    className="mt-0.5 text-primary underline-offset-4 hover:underline"
+                    className="mt-0.5 inline-block text-primary underline-offset-4 hover:underline"
                   >
                     info@bportlogistics.com
                   </a>
@@ -668,61 +706,133 @@ function ContactSection() {
                 {t.contact.formDescription}
               </p>
 
-              <form
-                className="mt-7 space-y-5"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="name"
-                    className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+              {isSuccess ? (
+                <div className="mt-7 flex flex-col items-center justify-center rounded-2xl bg-primary/10 p-8 text-center border border-primary/20">
+                  <CheckCircle2 className="size-12 text-primary mb-4" />
+                  <h4 className="text-lg font-semibold text-foreground">¡Mensaje enviado!</h4>
+                  <p className="mt-2 text-sm text-white/90! font-medium">{t.contact.successMessage}</p>
+                  <button 
+                    onClick={() => setIsSuccess(false)}
+                    className="mt-6 text-sm font-medium text-primary hover:underline underline-offset-4"
                   >
-                    {t.contact.labelName}
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    required
-                    placeholder={t.contact.placeholderName}
-                    className="rounded-xl border-border bg-background"
-                  />
+                    Enviar otro mensaje
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="email"
-                    className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+              ) : (
+                <form
+                  className="mt-7 space-y-5"
+                  onSubmit={handleSubmit}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="name"
+                        className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                      >
+                        {t.contact.labelName}
+                      </Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        required
+                        placeholder={t.contact.placeholderName}
+                        className="rounded-xl border-border bg-background"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="email"
+                        className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                      >
+                        {t.contact.labelEmail}
+                      </Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder={t.contact.placeholderEmail}
+                        className="rounded-xl border-border bg-background"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="phone"
+                        className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                      >
+                        {t.contact.labelPhone}
+                      </Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        placeholder={t.contact.placeholderPhone}
+                        className="rounded-xl border-border bg-background"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="service"
+                        className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                      >
+                        {t.contact.labelService}
+                      </Label>
+                      <select
+                        id="service"
+                        name="service"
+                        className="flex h-10 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Seleccionar...</option>
+                        {Object.entries((t.contact.serviceOptions as Record<string, string>) || {}).map(([key, label]) => (
+                          <option key={key} value={label}>{label}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="message"
+                      className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                    >
+                      {t.contact.labelMessage}
+                    </Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      required
+                      placeholder={t.contact.placeholderMessage}
+                      className="min-h-[120px] resize-none rounded-xl border-border bg-background"
+                    />
+                  </div>
+                  
+                  {errorMsg && (
+                    <p className="text-sm text-red-500">{errorMsg}</p>
+                  )}
+
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="btn-primary w-full justify-center sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed transition-all"
                   >
-                    {t.contact.labelEmail}
-                  </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder={t.contact.placeholderEmail}
-                    className="rounded-xl border-border bg-background"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="message"
-                    className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
-                  >
-                    {t.contact.labelMessage}
-                  </Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    required
-                    placeholder={t.contact.placeholderMessage}
-                    className="min-h-[120px] resize-none rounded-xl border-border bg-background"
-                  />
-                </div>
-                <button type="submit" className="btn-primary w-full justify-center sm:w-auto">
-                  {t.contact.submit}
-                  <ArrowRight className="size-4" aria-hidden />
-                </button>
-              </form>
+                    {isSubmitting ? (
+                      <>
+                        Enviando...
+                        <Loader2 className="size-4 animate-spin" aria-hidden />
+                      </>
+                    ) : (
+                      <>
+                        {t.contact.submit}
+                        <ArrowRight className="size-4" aria-hidden />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
           </MotionItem>
         </div>

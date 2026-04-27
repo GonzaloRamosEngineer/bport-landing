@@ -113,6 +113,10 @@ export type Messages = {
     placeholderName: string;
     labelEmail: string;
     placeholderEmail: string;
+    labelPhone: string;
+    placeholderPhone: string;
+    labelService: string;
+    serviceOptions: Record<string, string>;
     labelMessage: string;
     placeholderMessage: string;
     submit: string;
@@ -345,6 +349,16 @@ export const translations: Record<Locale, Messages> = {
       placeholderName: "Tu nombre",
       labelEmail: "Email",
       placeholderEmail: "nombre@empresa.com",
+      labelPhone: "Teléfono / WhatsApp (Opcional)",
+      placeholderPhone: "+598 99 123 456",
+      labelService: "Servicio de interés",
+      serviceOptions: {
+        import: "Importación",
+        export: "Exportación",
+        transport: "Transporte Internacional",
+        customs: "Despacho de Aduanas",
+        other: "Otro / Asesoramiento",
+      },
       labelMessage: "Mensaje",
       placeholderMessage:
         "Origen, destino y tipo de carga (si aplica).",
@@ -580,6 +594,16 @@ export const translations: Record<Locale, Messages> = {
       placeholderName: "Your name",
       labelEmail: "Email",
       placeholderEmail: "name@company.com",
+      labelPhone: "Phone / WhatsApp (Optional)",
+      placeholderPhone: "+598 99 123 456",
+      labelService: "Service of interest",
+      serviceOptions: {
+        import: "Import",
+        export: "Export",
+        transport: "International Transport",
+        customs: "Customs Clearance",
+        other: "Other / Advisory",
+      },
       labelMessage: "Message",
       placeholderMessage:
         "Origin, destination, and cargo type (if applicable).",
@@ -814,6 +838,16 @@ export const translations: Record<Locale, Messages> = {
       placeholderName: "Seu nome",
       labelEmail: "E-mail",
       placeholderEmail: "nome@empresa.com",
+      labelPhone: "Telefone / WhatsApp (Opcional)",
+      placeholderPhone: "+598 99 123 456",
+      labelService: "Serviço de interesse",
+      serviceOptions: {
+        import: "Importação",
+        export: "Exportação",
+        transport: "Transporte Internacional",
+        customs: "Despacho Aduaneiro",
+        other: "Outro / Assessoria",
+      },
       labelMessage: "Mensagem",
       placeholderMessage:
         "Origem, destino e tipo de carga (se aplicável).",
