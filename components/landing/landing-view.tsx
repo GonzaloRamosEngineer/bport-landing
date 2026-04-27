@@ -36,6 +36,7 @@ import { LanguageProvider, useLanguage } from "@/components/i18n/language-contex
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getWhatsAppUrl } from "@/lib/site";
 import { ReactLenis } from "lenis/react";
+import { section } from "framer-motion/client";
 const SERVICE_ICONS = [Package, Globe2, FileCheck, Building2] as const;
 const REVIEW_RATINGS = [5, 5, 5] as const;
 
@@ -110,6 +111,7 @@ function LogisticsRoutesBackground() {
 function HeroSection() {
   const { t, locale } = useLanguage();
   const { scrollY } = useScroll();
+
   const parallax1 = useTransform(scrollY, [0, 1000], [0, -100]);
   const parallax2 = useTransform(scrollY, [0, 1000], [0, -150]);
 
@@ -125,11 +127,12 @@ function HeroSection() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         />
+
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-[#0d0d12]/60" />
+        <div className="absolute inset-0 bg-[#0d0d12]/40" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+      <div className="relative z-20 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
         <motion.div
           variants={stagger.container}
           initial="hidden"
@@ -144,7 +147,10 @@ function HeroSection() {
           </motion.div>
 
           {/* Eyebrow */}
-          <motion.p variants={stagger.item} className="eyebrow mb-5 text-white/90! drop-shadow-md justify-center">
+          <motion.p
+            variants={stagger.item}
+            className="eyebrow mb-5 text-white/90! drop-shadow-md justify-center"
+          >
             {t.hero.eyebrow}
           </motion.p>
 
@@ -154,12 +160,9 @@ function HeroSection() {
             className="font-display text-balance text-4xl tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.05] drop-shadow-xl"
           >
             {t.hero.title}{" "}
-            <span className="block drop-shadow-[0_2px_20px_rgba(47,143,131,0.4)]" style={{
-              background: 'linear-gradient(135deg, #ffffff 0%, var(--accent) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
+            <span
+              className="block bg-gradient-to-br from-white via-[#2f8f83] to-[#0b1f3a] bg-clip-text text-transparent drop-shadow-[0_2px_20px_rgba(47,143,131,0.45)]"
+            >
               {t.hero.titleHighlight}
             </span>
           </motion.h1>
@@ -189,7 +192,11 @@ function HeroSection() {
               {t.hero.ctaWhatsApp}
               <ArrowRight className="size-4 ml-2" aria-hidden />
             </motion.a>
-            <a href="#servicios" className="btn-ghost text-white! border-white/40! hover:bg-white/10! hover:text-white! text-sm backdrop-blur-sm">
+
+            <a
+              href="#servicios"
+              className="btn-ghost text-white! border-white/40! hover:bg-white/10! hover:text-white! text-sm backdrop-blur-sm"
+            >
               {t.hero.ctaServices}
             </a>
           </motion.div>
@@ -204,6 +211,7 @@ function HeroSection() {
     </section>
   );
 }
+
 
 /* ─── About ───────────────────────────────────────────────────────── */
 function AboutSection() {
@@ -428,9 +436,9 @@ function ServicesSection() {
                   {/* === DORSO DE LA TARJETA (BACK) === */}
                   <div className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 z-10 bg-foreground border border-primary/30 rounded-3xl p-8 flex flex-col overflow-hidden shadow-2xl`}>
                       {/* Título Dorso + Botón Cerrar Superior */}
-                      <div className="flex items-center justify-between mb-4 border-b border-background/10 pb-4">
-                         <h3 className="font-display font-bold text-lg text-background">FICHA OPERATIVA</h3>
-                         <button className="text-background/60 hover:text-background p-1 transition-colors">
+                      <div className="flex items-center justify-between mb-4 border-b border-white/15 pb-4">
+                         <h3 className="font-display font-bold text-lg text-white">FICHA OPERATIVA</h3>
+                         <button className="text-white/60 hover:text-white p-1 transition-colors">
                             <span className="sr-only">Cerrar</span>
                             <X size={22} />
                          </button>
@@ -441,18 +449,18 @@ function ServicesSection() {
                          
                          {/* Para Quién */}
                          <div>
-                            <h4 className="font-semibold text-background text-xs uppercase mb-2 bg-background/10 inline-block px-2.5 py-1 rounded">Perfil Objetivo</h4>
-                            <p className="text-sm text-background/80 leading-relaxed">
+                            <h4 className="font-semibold text-white text-xs uppercase mb-2 bg-white/10 inline-block px-2.5 py-1 rounded">Perfil Objetivo</h4>
+                            <p className="text-sm text-white/85 leading-relaxed">
                                 {plan.targetAudience}
                             </p>
                          </div>
 
                          {plan.details?.map((detail, idx) => (
                            <div key={idx}>
-                              <h4 className="font-bold text-primary text-sm uppercase mb-2 tracking-wide">{detail.title}</h4>
+                              <h4 className="font-bold text-accent text-sm uppercase mb-2 tracking-wide">{detail.title}</h4>
                               <ul className="list-disc list-inside space-y-1.5">
                                  {detail.items.map((item, j) => (
-                                   <li key={j} className="text-sm text-background/80 leading-relaxed pl-1">
+                                   <li key={j} className="text-sm text-white/80 leading-relaxed pl-1">
                                      {item}
                                    </li>
                                  ))}
@@ -461,20 +469,20 @@ function ServicesSection() {
                          ))}
 
                          {plan.importantNote && (
-                           <div className="bg-primary/10 border border-primary/20 p-3.5 rounded-xl mt-4">
-                             <p className="text-xs text-background/90 leading-relaxed">
-                               <span className="font-bold text-primary">NOTA:</span> {plan.importantNote}
+                           <div className="bg-accent/10 border border-accent/25 p-3.5 rounded-xl mt-4">
+                             <p className="text-xs text-white/90 leading-relaxed">
+                               <span className="font-bold text-accent">NOTA:</span> {plan.importantNote}
                              </p>
                            </div>
                          )}
                       </div>
 
                       {/* --- ZONA DE BOTONES INFERIOR --- */}
-                      <div className="mt-6 pt-5 border-t border-background/10 z-20 flex flex-col sm:flex-row gap-3">
+                      <div className="mt-6 pt-5 border-t border-white/15 z-20 flex flex-col sm:flex-row gap-3">
                           
                           {/* 1. Botón Volver (Secundario) */}
                           <button
-                              className="w-full sm:w-auto px-4 py-3 bg-background/10 hover:bg-background/20 text-background rounded-xl font-semibold uppercase tracking-wide transition-all text-sm flex items-center justify-center"
+                              className="w-full sm:w-auto px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-semibold uppercase tracking-wide transition-all text-sm flex items-center justify-center"
                           >
                               <ArrowLeft size={16} className="mr-2" />
                               Volver
