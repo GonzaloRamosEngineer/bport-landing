@@ -1270,7 +1270,7 @@ function ForWhomSection() {
 
             {/* Tab Buttons */}
             <MotionItem>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3">
                 {t.forWhom.targetItems.map((item, i) => {
                   const Icon = tabIcons[i];
                   const isActive = activeTab === i;
@@ -1279,7 +1279,7 @@ function ForWhomSection() {
                       key={i}
                       onClick={() => setActiveTab(i)}
                       className={`
-                        group relative flex items-center gap-2 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer
+                        group relative flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 cursor-pointer w-full sm:w-auto
                         ${isActive
                           ? "bg-primary text-white shadow-lg shadow-primary/25"
                           : "bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/60"
@@ -1287,8 +1287,7 @@ function ForWhomSection() {
                       `}
                     >
                       <Icon className={`size-4 shrink-0 transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"}`} />
-                      <span className="hidden md:inline">{item.title.replace(".", "")}</span>
-                      <span className="md:hidden">{item.title.replace(".", "").split(" ").slice(0, 3).join(" ")}</span>
+                      <span>{item.title.replace(".", "")}</span>
                     </button>
                   );
                 })}
