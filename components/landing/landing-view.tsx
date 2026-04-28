@@ -684,6 +684,10 @@ function ContactSection() {
             <div className="section-divider" />
             <p className="mt-7 max-w-prose text-pretty text-muted-foreground">
               {t.contact.subtitle}
+              <a href={`tel:${t.contact.subtitlePhone.replace(/\s/g, '')}`} className="text-primary font-semibold underline-offset-4 hover:underline">
+                {t.contact.subtitlePhone}
+              </a>
+              {t.contact.subtitleAfterPhone}
             </p>
 
             <div className="mt-9 space-y-5 text-sm">
@@ -695,9 +699,14 @@ function ContactSection() {
                   <p className="font-semibold text-foreground">
                     {t.contact.officeLabel}
                   </p>
-                  <p className="mt-0.5 text-muted-foreground">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.contact.officeAddress)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-0.5 text-muted-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
+                  >
                     {t.contact.officeAddress}
-                  </p>
+                  </a>
                 </div>
               </div>
 
@@ -988,10 +997,15 @@ function Footer() {
             <ul className="space-y-4 text-sm text-white/60">
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
-                <span>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Minas 1543/502, Montevideo, Uruguay')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
                   Minas 1543/502<br />
                   Montevideo, Uruguay
-                </span>
+                </a>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-primary shrink-0" />

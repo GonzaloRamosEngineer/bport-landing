@@ -104,8 +104,12 @@ export type Messages = {
     kicker: string;
     title: string;
     subtitle: string;
+    subtitlePhone: string;
+    subtitleAfterPhone: string;
     officeLabel: string;
     officeAddress: string;
+    phoneLabel: string;
+    phoneNumber: string;
     emailLabel: string;
     formTitle: string;
     formDescription: string;
@@ -347,9 +351,14 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contacto",
       title: "Hablemos de tu próximo movimiento",
       subtitle:
-        "Completá el formulario o llamanos al +598 92 330925. Respondemos con prioridad a consultas comerciales y operativas.",
+        "Completá el formulario o llamanos al ",
+      subtitlePhone: "+598 92 330925",
+      subtitleAfterPhone:
+        ". Respondemos con prioridad a consultas comerciales y operativas.",
       officeLabel: "Oficina",
       officeAddress: "Minas 1543/502 – Zona Centro, Montevideo, Uruguay",
+      phoneLabel: "Teléfono",
+      phoneNumber: "+598 92 330925",
       emailLabel: "Email",
       formTitle: "Cotiza sin compromiso",
       formDescription:
@@ -601,9 +610,14 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contact",
       title: "Let's talk about your next move",
       subtitle:
-        "Fill out the form or reach us on WhatsApp at +598 92 330925. We respond with priority to commercial and operational inquiries.",
+        "Fill out the form or reach us on WhatsApp at ",
+      subtitlePhone: "+598 92 330925",
+      subtitleAfterPhone:
+        ". We respond with priority to commercial and operational inquiries.",
       officeLabel: "Office",
       officeAddress: "Minas 1543/502 – Port area, Montevideo, Uruguay",
+      phoneLabel: "Phone",
+      phoneNumber: "+598 92 330925",
       emailLabel: "Email",
       formTitle: "Quote with no commitment",
       formDescription:
@@ -854,9 +868,14 @@ export const translations: Record<Locale, Messages> = {
       kicker: "Contato",
       title: "Vamos falar sobre sua próxima operação",
       subtitle:
-        "Preencha o formulário ou fale conosco pelo WhatsApp em +598 92 330925. Priorizamos consultas comerciais e operacionais.",
+        "Preencha o formulário ou fale conosco pelo WhatsApp em ",
+      subtitlePhone: "+598 92 330925",
+      subtitleAfterPhone:
+        ". Priorizamos consultas comerciais e operacionais.",
       officeLabel: "Escritório",
       officeAddress: "Minas 1543/502 – Zona Portuária, Montevidéu, Uruguai",
+      phoneLabel: "Telefone",
+      phoneNumber: "+598 92 330925",
       emailLabel: "E-mail",
       formTitle: "Cotar sem compromisso",
       formDescription:
