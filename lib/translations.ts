@@ -349,7 +349,7 @@ export const translations: Record<Locale, Messages> = {
       subtitle:
         "Completá el formulario o llamanos al +598 92 330925. Respondemos con prioridad a consultas comerciales y operativas.",
       officeLabel: "Oficina",
-      officeAddress: "Minas 1543/502 – Zona Puerto, Montevideo, Uruguay",
+      officeAddress: "Minas 1543/502 – Zona Centro, Montevideo, Uruguay",
       emailLabel: "Email",
       formTitle: "Cotiza sin compromiso",
       formDescription:
