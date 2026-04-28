@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  Building2,
   FileCheck,
   Globe2,
   MapPin,
@@ -24,7 +23,7 @@ import {
   Rocket,
   ShoppingCart,
 } from "lucide-react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,8 +35,7 @@ import { LanguageProvider, useLanguage } from "@/components/i18n/language-contex
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getWhatsAppUrl } from "@/lib/site";
 import { ReactLenis } from "lenis/react";
-import { section } from "framer-motion/client";
-const SERVICE_ICONS = [Package, Globe2, FileCheck, Building2] as const;
+
 const REVIEW_RATINGS = [5, 5, 5] as const;
 
 const fadeEase = [0.22, 1, 0.36, 1] as const;
@@ -110,10 +108,6 @@ function LogisticsRoutesBackground() {
 
 function HeroSection() {
   const { t, locale } = useLanguage();
-  const { scrollY } = useScroll();
-
-  const parallax1 = useTransform(scrollY, [0, 1000], [0, -100]);
-  const parallax2 = useTransform(scrollY, [0, 1000], [0, -150]);
 
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-center border-b border-border/60">
@@ -922,7 +916,7 @@ function ContactSection() {
 
 /* ─── Footer ──────────────────────────────────────────────────────── */
 function Footer() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
 
   const scrollToTop = () => {

@@ -25,32 +25,65 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const siteUrl = "https://bportlogistics.com";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bportlogistics.com"),
+  metadataBase: new URL(siteUrl),
+
   title: translations[defaultLocale].meta.title,
   description: translations[defaultLocale].meta.description,
+
+  keywords: [
+    "BPORT Logistics",
+    "logística en Montevideo",
+    "logística Uruguay",
+    "empresa de logística Uruguay",
+    "transporte de carga Uruguay",
+    "importaciones Uruguay",
+    "comercio exterior Uruguay",
+    "soluciones logísticas para empresas",
+  ],
+
+  alternates: {
+    canonical: siteUrl,
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
   openGraph: {
     title: translations[defaultLocale].meta.title,
     description: translations[defaultLocale].meta.description,
-    url: "https://bportlogistics.com",
+    url: siteUrl,
     siteName: "BPORT Logistics",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "BPORT Logistics - Conectamos tu carga con el mundo",
+        alt: "BPORT Logistics - Soluciones logísticas en Uruguay",
       },
     ],
-    locale: "es",
+    locale: "es_UY",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: translations[defaultLocale].meta.title,
     description: translations[defaultLocale].meta.description,
     images: ["/og-image.png"],
   },
+
   icons: {
     icon: [
       { url: "/icon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -63,6 +96,27 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "BPORT Logistics",
+  url: siteUrl,
+  logo: `${siteUrl}/bport-logo.png`,
+  image: `${siteUrl}/og-image.png`,
+  email: "info@bportlogistics.com",
+  telephone: "+59892330925",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Minas 1543/502",
+    addressLocality: "Montevideo",
+    addressCountry: "UY",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Uruguay",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -70,10 +124,18 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
+      lang="es-UY"
       className={`${syne.variable} ${dmSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
