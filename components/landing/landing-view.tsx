@@ -22,6 +22,7 @@ import {
   Loader2,
   Rocket,
   ShoppingCart,
+  Lock,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -1044,7 +1045,19 @@ function Footer() {
             </a>
           </div>
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6">
+              {/* Admin Login - Camuflado */}
+              <a 
+                href="https://www.spacemail.com/login/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/0 hover:bg-white/5 text-white/20 hover:text-white/60 transition-all duration-300"
+                aria-label="Webmail Login"
+                title="Webmail"
+              >
+                <Lock size={15} strokeWidth={1.5} />
+              </a>
+
               <Button 
                 onClick={scrollToTop}
                 variant="ghost"
