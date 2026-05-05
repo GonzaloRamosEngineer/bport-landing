@@ -934,7 +934,7 @@ function Footer() {
   };
 
   return (
-    <footer className="bg-[#0d0d12] text-white pt-20 pb-10 px-4 relative overflow-hidden border-t border-white/10">
+    <footer className="bg-[#0d0d12] text-white pt-20 pb-24 md:pb-28 px-4 relative overflow-hidden border-t border-white/10">
       
       {/* Círculo decorativo gigante de fondo */}
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
