@@ -54,8 +54,26 @@ export function HeroSection() {
         </video>
 
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-[#0d0d12]/40" />
+        <div className="absolute inset-0 bg-[#0d0d12]/40" aria-hidden />
+
+        {/* Cinematic vignette */}
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(13,13,18,0.55)_100%)]"
+          aria-hidden
+        />
+
+        {/* Top fade (merge with header) */}
+        <div
+          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/45 to-transparent"
+          aria-hidden
+        />
       </div>
+
+      {/* Atmospheric glow behind headline */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 z-[15] h-[55vh] w-[70vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(47,143,131,0.28)_0%,transparent_60%)] opacity-80 blur-3xl"
+      />
 
       <div className="relative z-20 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
         <motion.div
@@ -114,8 +132,17 @@ export function HeroSection() {
               whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
               transition={prefersReducedMotion ? undefined : { type: "spring", stiffness: 400, damping: 20 }}
             >
-              {t.hero.ctaWhatsApp}
-              <ArrowRight className="size-4 ml-2" aria-hidden />
+              {!prefersReducedMotion && (
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-linear-to-r from-transparent via-white/25 to-transparent"
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "500%" }}
+                  transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }}
+                />
+              )}
+              <span className="relative">{t.hero.ctaWhatsApp}</span>
+              <ArrowRight className="relative size-4 ml-2" aria-hidden />
             </motion.a>
 
             <a
