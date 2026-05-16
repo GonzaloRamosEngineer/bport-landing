@@ -5,15 +5,29 @@ import Link from "next/link";
 
 import { useLanguage } from "@/components/i18n/language-context";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { useScrollState } from "@/lib/hooks/use-scroll-state";
 import { getWhatsAppUrl } from "@/lib/site";
 
 export function Header() {
   const { t, locale } = useLanguage();
+  const scrolled = useScrollState(16);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
+    <header
+      className={
+        scrolled
+          ? "sticky top-0 z-40 border-b border-primary/15 bg-background/95 backdrop-blur-xl shadow-[0_8px_24px_-4px_rgba(15,23,42,0.10),0_4px_8px_-2px_rgba(15,23,42,0.04)] transition-[background-color,backdrop-filter,border-color,box-shadow] duration-200 ease-out"
+          : "sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md transition-[background-color,backdrop-filter,border-color,box-shadow] duration-200 ease-out"
+      }
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 py-3.5">
+        <div
+          className={
+            scrolled
+              ? "flex items-center justify-between gap-4 py-2 transition-[padding] duration-200 ease-out"
+              : "flex items-center justify-between gap-4 py-3.5 transition-[padding] duration-200 ease-out"
+          }
+        >
           <Link href="/" className="flex min-w-0 items-center gap-3">
             <Image
               src="/bport-logo.png"
