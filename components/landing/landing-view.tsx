@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -33,9 +32,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { MotionItem, MotionSection } from "@/components/landing/motion";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { LanguageProvider, useLanguage } from "@/components/i18n/language-context";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { getWhatsAppUrl } from "@/lib/site";
 import { ReactLenis } from "lenis/react";
+import { HeroSection } from "@/components/landing/sections/hero";
+import { Header } from "@/components/landing/sections/header";
+import { LogisticsRoutesBackground } from "@/components/landing/visuals/logistics-routes-background";
 
 const REVIEW_RATINGS = [5, 5, 5] as const;
 
@@ -51,162 +52,6 @@ const stagger = {
     show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: fadeEase } },
   },
 };
-
-
-
-
-/* ─── Hero ────────────────────────────────────────────────────────── */
-function LogisticsRoutesBackground() {
-  const routes = [
-    { id: 1, d: "M-100,150 L300,150 Q350,150 350,200 L350,600 Q350,650 400,650 L1540,650", duration: 15, delay: 0, color: "#d42f7a" },
-    { id: 2, d: "M1540,250 L1100,250 Q1050,250 1050,300 L1050,550 Q1050,600 1000,600 L-100,600", duration: 18, delay: 2, color: "#2f8f83" },
-    { id: 3, d: "M200,900 L200,500 Q200,450 250,450 L800,450 Q850,450 850,400 L850,-100", duration: 12, delay: 1, color: "#e0603a" },
-    { id: 4, d: "M1200,-100 L1200,350 Q1200,400 1250,400 L1540,400", duration: 8, delay: 3, color: "#16324f" },
-    { id: 5, d: "M-100,750 L600,750 Q650,750 650,700 L650,-100", duration: 14, delay: 0.5, color: "#d42f7a" }
-  ];
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <svg className="w-full h-full opacity-40" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
-        {routes.map((r) => (
-          <g key={r.id}>
-            {/* Base Track */}
-            <path
-              d={r.d}
-              stroke="currentColor"
-              className="text-muted-foreground/20"
-              strokeWidth="1.5"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {/* Moving Cargo (Pulse) */}
-            <motion.path
-              d={r.d}
-              stroke={r.color}
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              pathLength={100}
-              strokeDasharray="6 100"
-              initial={{ strokeDashoffset: 106 }}
-              animate={{ strokeDashoffset: -6 }}
-              transition={{
-                duration: r.duration,
-                repeat: Infinity,
-                ease: "linear",
-                delay: r.delay,
-              }}
-            />
-          </g>
-        ))}
-      </svg>
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-background/50" />
-    </div>
-  );
-}
-
-function HeroSection() {
-  const { t, locale } = useLanguage();
-
-  return (
-    <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-center border-b border-border/60">
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <video
-          src="/VideoPresentacion.mov"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-[#0d0d12]/40" />
-      </div>
-
-      <div className="relative z-20 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-        <motion.div
-          variants={stagger.container}
-          initial="hidden"
-          animate="show"
-          className="flex flex-col items-center"
-        >
-          {/* Trust badge */}
-          <motion.div variants={stagger.item} className="mb-6 inline-flex">
-            <span className="stat-chip text-white! bg-white/10! border-white/20! backdrop-blur-md">
-              {t.hero.trustBadge}
-            </span>
-          </motion.div>
-
-          {/* Eyebrow */}
-          <motion.p
-            variants={stagger.item}
-            className="eyebrow mb-5 text-white/90! drop-shadow-md justify-center"
-          >
-            {t.hero.eyebrow}
-          </motion.p>
-
-          {/* Headline */}
-          <motion.h1
-            variants={stagger.item}
-            className="font-display text-balance text-4xl tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.05] drop-shadow-xl"
-          >
-            {t.hero.title}{" "}
-            <span
-              className="block bg-gradient-to-br from-white via-[#2f8f83] to-[#0b1f3a] bg-clip-text text-transparent drop-shadow-[0_2px_20px_rgba(47,143,131,0.45)]"
-            >
-              {t.hero.titleHighlight}
-            </span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={stagger.item}
-            className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white font-medium drop-shadow-md sm:text-lg"
-          >
-            {t.hero.subtitle}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            variants={stagger.item}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
-          >
-            <motion.a
-              href={getWhatsAppUrl(locale)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-sm shadow-xl shadow-primary/20"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            >
-              {t.hero.ctaWhatsApp}
-              <ArrowRight className="size-4 ml-2" aria-hidden />
-            </motion.a>
-
-            <a
-              href="#servicios"
-              className="btn-ghost text-white! border-white/40! hover:bg-white/10! hover:text-white! text-sm backdrop-blur-sm"
-            >
-              {t.hero.ctaServices}
-            </a>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Bottom fade */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10 bg-linear-to-b from-black/60 via-black/30 to-background"
-        aria-hidden
-      />
-    </section>
-  );
-}
-
 
 /* ─── About ───────────────────────────────────────────────────────── */
 function AboutSection() {
@@ -1072,90 +917,6 @@ function Footer() {
     </footer>
   );
 }
-
-/* ─── Header ──────────────────────────────────────────────────────── */
-function Header() {
-  const { t, locale } = useLanguage();
-
-  return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 py-3.5">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
-            <Image
-              src="/bport-logo.png"
-              alt={t.logoAlt}
-              width={140}
-              height={48}
-              className="h-8 w-auto object-contain sm:h-9"
-              priority
-            />
-          </Link>
-
-          <div className="flex flex-1 items-center justify-end gap-3 md:gap-5">
-            <nav
-              className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex"
-              aria-label={t.nav.primary}
-            >
-              {[
-                ["#nosotros", t.nav.about],
-                ["#servicios", t.nav.services],
-                ["#proceso", t.nav.process],
-                ["#paraquien", t.nav.forWhom],
-                ["#resenas", t.nav.reviews],
-                ["#contacto", t.nav.contact],
-              ].map(([href, label]) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="relative transition-colors hover:text-foreground after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-200 hover:after:w-full"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
-
-            <LanguageSwitcher className="shrink-0" />
-
-            <a
-              href={getWhatsAppUrl(locale)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary hidden shrink-0 text-xs sm:inline-flex"
-              style={{ padding: "0.5rem 1.125rem" }}
-            >
-              {t.nav.whatsapp}
-            </a>
-          </div>
-        </div>
-
-        {/* Mobile nav pills */}
-        <nav
-          className="-mx-1 flex gap-1.5 overflow-x-auto pb-3 md:hidden scrollbar-none"
-          aria-label={t.nav.sections}
-        >
-          {[
-            ["#nosotros", t.nav.about],
-            ["#servicios", t.nav.services],
-            ["#proceso", t.nav.process],
-            ["#paraquien", t.nav.forWhom],
-            ["#resenas", t.nav.reviews],
-            ["#contacto", t.nav.contact],
-          ].map(([href, label]) => (
-            <a
-              key={href}
-              href={href}
-              className="shrink-0 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-muted hover:text-foreground"
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </header>
-  );
-}
-
 
 /* ─── Trust Section (Counters) ────────────────────────────────────── */
 function Counter({ target, suffix }: { target: number; suffix: string }) {

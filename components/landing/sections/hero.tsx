@@ -1,0 +1,138 @@
+"use client";
+
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+import { useLanguage } from "@/components/i18n/language-context";
+import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
+import { getWhatsAppUrl } from "@/lib/site";
+
+const fadeEase = [0.22, 1, 0.36, 1] as const;
+
+const stagger = {
+  container: {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  },
+  item: {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: fadeEase } },
+  },
+};
+
+const staggerReduced = {
+  container: {
+    hidden: {},
+    show: { transition: { staggerChildren: 0, delayChildren: 0 } },
+  },
+  item: {
+    hidden: { opacity: 1, y: 0 },
+    show: { opacity: 1, y: 0, transition: { duration: 0 } },
+  },
+};
+
+export function HeroSection() {
+  const { t, locale } = useLanguage();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const variants = prefersReducedMotion ? staggerReduced : stagger;
+
+  return (
+    <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-center border-b border-border/60">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/video/presentacion-poster.jpg"
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/video/presentacion.webm" type="video/webm" />
+          <source src="/video/presentacion.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-[#0d0d12]/40" />
+      </div>
+
+      <div className="relative z-20 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+        <motion.div
+          variants={variants.container}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center"
+        >
+          {/* Trust badge */}
+          <motion.div variants={variants.item} className="mb-6 inline-flex">
+            <span className="stat-chip text-white! bg-white/10! border-white/20! backdrop-blur-md">
+              {t.hero.trustBadge}
+            </span>
+          </motion.div>
+
+          {/* Eyebrow */}
+          <motion.p
+            variants={variants.item}
+            className="eyebrow mb-5 text-white/90! drop-shadow-md justify-center"
+          >
+            {t.hero.eyebrow}
+          </motion.p>
+
+          {/* Headline */}
+          <motion.h1
+            variants={variants.item}
+            className="font-display text-balance text-4xl tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.05] drop-shadow-xl"
+          >
+            {t.hero.title}{" "}
+            <span
+              className="block bg-gradient-to-br from-white via-[#2f8f83] to-[#0b1f3a] bg-clip-text text-transparent drop-shadow-[0_2px_20px_rgba(47,143,131,0.45)]"
+            >
+              {t.hero.titleHighlight}
+            </span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            variants={variants.item}
+            className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white font-medium drop-shadow-md sm:text-lg"
+          >
+            {t.hero.subtitle}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            variants={variants.item}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
+          >
+            <motion.a
+              href={getWhatsAppUrl(locale)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-sm shadow-xl shadow-primary/20"
+              whileHover={prefersReducedMotion ? undefined : { y: -2 }}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+              transition={prefersReducedMotion ? undefined : { type: "spring", stiffness: 400, damping: 20 }}
+            >
+              {t.hero.ctaWhatsApp}
+              <ArrowRight className="size-4 ml-2" aria-hidden />
+            </motion.a>
+
+            <a
+              href="#servicios"
+              className="btn-ghost text-white! border-white/40! hover:bg-white/10! hover:text-white! text-sm backdrop-blur-sm"
+            >
+              {t.hero.ctaServices}
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Bottom fade */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 bg-linear-to-b from-black/60 via-black/30 to-background"
+        aria-hidden
+      />
+    </section>
+  );
+}
