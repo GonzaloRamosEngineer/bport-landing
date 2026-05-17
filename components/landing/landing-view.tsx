@@ -32,13 +32,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { MotionItem, MotionSection } from "@/components/landing/motion";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { LanguageProvider, useLanguage } from "@/components/i18n/language-context";
-import { getWhatsAppUrl } from "@/lib/site";
+import { getWhatsAppUrl, GOOGLE_MAPS_EMBED_URL, GOOGLE_MAPS_DIRECTIONS_URL, GOOGLE_MAPS_PROFILE_URL } from "@/lib/site";
 import { ReactLenis } from "lenis/react";
 import { HeroSection } from "@/components/landing/sections/hero";
 import { Header } from "@/components/landing/sections/header";
 import { ProcessSection } from "@/components/landing/sections/process";
-
-const REVIEW_RATINGS = [5, 5, 5] as const;
+import { ClientsMarquee } from "@/components/landing/sections/clients-marquee";
 
 const fadeEase = [0.22, 1, 0.36, 1] as const;
 
@@ -367,14 +366,14 @@ function ReviewsSection() {
         </MotionItem>
 
         <motion.div
-          className="mt-12 grid gap-5 md:grid-cols-3"
+          className="mx-auto mt-12 grid max-w-2xl gap-5"
           variants={stagger.container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
         >
           {t.reviews.items.map((r, i) => {
-            const rating = REVIEW_RATINGS[i];
+            const rating = r.rating;
             return (
               <motion.div
                 key={`${locale}-rev-${i}`}
@@ -415,7 +414,9 @@ function ReviewsSection() {
                   <p className="font-display text-sm font-semibold text-foreground">
                     {r.name}
                   </p>
-                  <p className="text-xs text-muted-foreground">{r.role}</p>
+                  {r.role ? (
+                    <p className="text-xs text-muted-foreground">{r.role}</p>
+                  ) : null}
                 </div>
               </motion.div>
             );
@@ -424,7 +425,7 @@ function ReviewsSection() {
 
         <MotionItem className="mt-10 text-center">
           <a
-            href="https://maps.google.com"
+            href={GOOGLE_MAPS_PROFILE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline"
@@ -519,7 +520,7 @@ function ContactSection() {
       className="border-t border-border/80 scroll-mt-24"
       style={{ background: "var(--muted)" }}
     >
-      <div className="mx-auto max-w-6xl px-4 py-(--section-py) sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 pt-(--section-py) sm:px-6 lg:px-8">
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           {/* Left: info */}
           <MotionItem>
@@ -536,43 +537,21 @@ function ContactSection() {
               {t.contact.subtitleAfterPhone}
             </p>
 
-            <div className="mt-9 space-y-5 text-sm">
-              <div className="flex items-start gap-4">
-                <div className="icon-box mt-0.5 size-9 shrink-0">
-                  <MapPin className="size-4 stroke-[1.5]" aria-hidden />
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground">
-                    {t.contact.officeLabel}
+            <ul className="mt-9 space-y-5">
+              {t.contact.emails.map((entry) => (
+                <li key={entry.address}>
+                  <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                    {entry.description}
                   </p>
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t.contact.officeAddress)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-0.5 text-muted-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
+                    href={`mailto:${entry.address}`}
+                    className="mt-1 inline-block text-base text-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
                   >
-                    {t.contact.officeAddress}
+                    {entry.address}
                   </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="icon-box mt-0.5 size-9 shrink-0">
-                  <span className="text-xs font-bold text-primary">@</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground">
-                    {t.contact.emailLabel}
-                  </p>
-                  <a
-                    href="mailto:info@bportlogistics.com"
-                    className="mt-0.5 inline-block text-primary underline-offset-4 hover:underline"
-                  >
-                    info@bportlogistics.com
-                  </a>
-                </div>
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
 
             {/* WhatsApp shortcut */}
             <div className="mt-10">
@@ -764,8 +743,142 @@ function ContactSection() {
             </div>
           </MotionItem>
         </div>
+
       </div>
+
+      {/* Map band — full-bleed on desktop, contained on mobile */}
+      <ContactMapBand />
     </MotionSection>
+  );
+}
+
+/* ─── Contact › Map band ──────────────────────────────────────────── */
+function ContactMapBand() {
+  const { t } = useLanguage();
+  const [pinOpen, setPinOpen] = useState(false);
+  const pinWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pinOpen) return;
+    const onPointerDown = (e: MouseEvent | TouchEvent) => {
+      if (pinWrapRef.current && !pinWrapRef.current.contains(e.target as Node)) {
+        setPinOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPinOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown, { passive: true });
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [pinOpen]);
+
+  return (
+    <MotionItem className="mt-16 pb-(--section-py) sm:mt-20">
+      <div className="mx-auto mb-8 max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+        <p className="eyebrow justify-center">{t.contact.mapKicker}</p>
+        <h3 className="font-display mt-4 text-2xl tracking-tight text-foreground sm:text-3xl">
+          {t.contact.mapTitle}
+        </h3>
+        <p className="mt-3 text-sm text-muted-foreground">
+          {t.contact.mapSubtitle}
+        </p>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:max-w-none lg:px-0">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm lg:rounded-none lg:border-x-0">
+          <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+            <iframe
+              src={GOOGLE_MAPS_EMBED_URL}
+              title={t.contact.mapAriaLabel}
+              aria-label={t.contact.mapAriaLabel}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              className="pointer-events-none absolute inset-0 h-full w-full border-0 grayscale-[15%] contrast-[1.02]"
+            />
+
+            {/* Interactive pin — anchored at map's visual center; hover (desktop) or tap (any) reveals address */}
+            <div
+              ref={pinWrapRef}
+              className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-full"
+            >
+              <div className="group relative flex flex-col items-center">
+                {/* Address tooltip (above pin) */}
+                <div
+                  role="tooltip"
+                  className={`
+                    absolute bottom-full left-1/2 mb-4 w-max max-w-[min(280px,72vw)] -translate-x-1/2
+                    rounded-xl bg-foreground px-4 py-3 text-left text-white shadow-2xl ring-1 ring-white/10
+                    transition-all duration-200 ease-out
+                    ${pinOpen
+                      ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+                      : "pointer-events-none translate-y-1 scale-95 opacity-0"
+                    }
+                    group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100
+                  `}
+                >
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-accent">
+                    BPORT Logistics
+                  </p>
+                  <p className="mt-1 text-sm font-medium leading-snug">
+                    {t.contact.officeAddress}
+                  </p>
+                  {/* Pointer triangle */}
+                  <span
+                    className="absolute left-1/2 top-full size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-foreground ring-1 ring-white/10"
+                    aria-hidden
+                  />
+                </div>
+
+                {/* Pin button */}
+                <button
+                  type="button"
+                  onClick={() => setPinOpen((prev) => !prev)}
+                  aria-label={t.contact.pinSrLabel}
+                  aria-expanded={pinOpen}
+                  className="relative flex flex-col items-center outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-full"
+                >
+                  <span
+                    className="pointer-events-none absolute bottom-0 left-1/2 size-12 -translate-x-1/2 translate-y-1/2 animate-ping rounded-full bg-primary/40"
+                    aria-hidden
+                  />
+                  <div className="relative flex size-12 items-center justify-center rounded-full bg-primary text-white shadow-2xl ring-[3px] ring-white transition-transform duration-300 hover:scale-110">
+                    <MapPin className="size-5" strokeWidth={2.5} fill="currentColor" />
+                  </div>
+                  <span
+                    className="-mt-1.5 size-3 rotate-45 bg-primary ring-[3px] ring-white"
+                    aria-hidden
+                  />
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom gradient for CTA legibility */}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-black/55 via-black/15 to-transparent"
+              aria-hidden
+            />
+          </div>
+
+          {/* Floating "Cómo llegar" CTA */}
+          <a
+            href={GOOGLE_MAPS_DIRECTIONS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-4 right-4 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:-translate-y-0.5 hover:bg-primary/90 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8"
+          >
+            {t.contact.mapCta}
+            <ArrowUpRight className="size-4" aria-hidden />
+          </a>
+        </div>
+      </div>
+    </MotionItem>
   );
 }
 
@@ -1207,6 +1320,7 @@ function LandingBody() {
           <TrustSection />
           <ProcessSection />
           <AboutSection />
+          <ClientsMarquee />
           <ForWhomSection />
           <ServicesSection />
           <ReviewsSection />

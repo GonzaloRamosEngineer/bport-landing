@@ -64,7 +64,7 @@ export function HeroSection() {
 
         {/* Top fade (merge with header) */}
         <div
-          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/45 to-transparent"
+          className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/55 to-transparent"
           aria-hidden
         />
       </div>

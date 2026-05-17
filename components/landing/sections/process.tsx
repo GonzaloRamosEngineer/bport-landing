@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { useLanguage } from "@/components/i18n/language-context";
@@ -8,76 +8,134 @@ import { MotionItem, MotionSection } from "@/components/landing/motion";
 import { LogisticsRoutesBackground } from "@/components/landing/visuals/logistics-routes-background";
 import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
 
+const PROCESS_IMAGES = [
+  "/proceso 1.png",
+  "/proceso 2.png",
+  "/proceso 3.png",
+  "/proceso 4.png",
+] as const;
+
 export function ProcessSection() {
   const { t } = useLanguage();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const items = t.process.items;
+
+  const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
     <MotionSection
       id="proceso"
-      className="relative overflow-hidden border-b border-border/50 bg-background py-24"
+      className="relative overflow-hidden border-b border-border/50 bg-background py-24 lg:py-32"
     >
       <LogisticsRoutesBackground />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <MotionItem className="mb-16 max-w-3xl">
+        <MotionItem className="mb-20 max-w-3xl lg:mb-28">
           <span className="eyebrow mb-4">{t.process.kicker}</span>
-          <h2 className="text-3xl md:text-5xl font-display tracking-tight text-foreground mb-6">
+          <h2 className="mb-6 font-display text-3xl tracking-tight text-foreground md:text-5xl">
             {t.process.title}
           </h2>
-          <p className="text-foreground/80 text-lg sm:text-xl max-w-2xl">
+          <p className="max-w-2xl text-lg text-foreground/80 sm:text-xl">
             {t.process.subtitle}
           </p>
         </MotionItem>
 
-        <div className="relative">
-          {/* Route connector — desktop only */}
-          <svg
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-20 hidden h-px w-full lg:block"
-            viewBox="0 0 100 1"
-            preserveAspectRatio="none"
-          >
-            <motion.line
-              x1="2"
-              y1="0.5"
-              x2="98"
-              y2="0.5"
-              stroke="currentColor"
-              strokeWidth="0.8"
-              strokeDasharray="2 1.3"
-              strokeLinecap="round"
-              pathLength={1}
-              className="text-primary/70"
-              initial={{ pathLength: prefersReducedMotion ? 1 : 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={
-                prefersReducedMotion
-                  ? { duration: 0 }
-                  : { duration: 1.1, ease: [0.22, 1, 0.36, 1] }
-              }
-            />
-          </svg>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {t.process.items.map((item, i) => (
-              <MotionItem
+        <ol className="space-y-24 lg:space-y-36">
+          {items.map((item, i) => {
+            const imageLeft = i % 2 === 0;
+            return (
+              <li
                 key={i}
-                className="group relative p-8 rounded-2xl bg-card border border-border/60 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-xl"
+                className="grid items-center gap-10 lg:grid-cols-5 lg:gap-14 xl:gap-20"
               >
-                <div className="text-6xl font-display text-foreground/10 font-bold mb-6 group-hover:text-primary/25 transition-colors">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-medium text-foreground mb-3">{item.title}</h3>
-                <p className="text-sm text-foreground/70 leading-relaxed">{item.description}</p>
-                <div className="absolute top-8 right-8 text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-                  <ArrowRight className="w-6 h-6" />
-                </div>
-              </MotionItem>
-            ))}
-          </div>
-        </div>
+                {/* Image — smaller, tonal, breathing */}
+                <motion.figure
+                  className={`relative mx-auto w-4/5 sm:w-3/5 lg:col-span-2 lg:mx-0 lg:w-auto ${
+                    imageLeft ? "lg:order-1" : "lg:order-2"
+                  }`}
+                  initial={{
+                    opacity: 0,
+                    y: prefersReducedMotion ? 0 : 24,
+                  }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : { duration: 1, ease }
+                  }
+                >
+                  <div className="relative aspect-[1672/941] overflow-hidden rounded-2xl bg-card">
+                    <motion.div
+                      className="relative h-full w-full"
+                      initial={{
+                        filter: prefersReducedMotion
+                          ? "saturate(1) contrast(1)"
+                          : "saturate(0.55) contrast(0.95)",
+                      }}
+                      whileInView={{
+                        filter: "saturate(1) contrast(1)",
+                      }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={
+                        prefersReducedMotion
+                          ? { duration: 0 }
+                          : { duration: 1.6, ease, delay: 0.25 }
+                      }
+                    >
+                      <Image
+                        src={PROCESS_IMAGES[i]}
+                        alt={item.title}
+                        fill
+                        sizes="(min-width: 1024px) 38vw, (min-width: 640px) 60vw, 80vw"
+                        className="object-cover"
+                      />
+                    </motion.div>
+                    {/* Whisper-thin inner hairline — barely there */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-foreground/[0.04]"
+                    />
+                  </div>
+                </motion.figure>
+
+                {/* Narrative — text dominates, no decoration */}
+                <motion.div
+                  className={`lg:col-span-3 ${
+                    imageLeft ? "lg:order-2" : "lg:order-1"
+                  }`}
+                  initial={{
+                    opacity: 0,
+                    y: prefersReducedMotion ? 0 : 24,
+                  }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : { duration: 1, ease, delay: 0.1 }
+                  }
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="font-display text-sm font-semibold tracking-[0.24em] text-primary">
+                      {item.step}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="block h-px w-12 bg-primary/60 sm:w-16"
+                    />
+                  </div>
+                  <h3 className="mt-6 font-display text-2xl font-medium leading-snug text-foreground sm:text-3xl xl:text-[34px]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-5 max-w-md text-base leading-relaxed text-foreground/70 lg:text-lg">
+                    {item.description}
+                  </p>
+                </motion.div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
 
       {/* Bottom atmospheric fade */}

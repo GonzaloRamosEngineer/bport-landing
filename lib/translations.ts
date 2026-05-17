@@ -24,7 +24,8 @@ export type ServiceCopy = {
 export type ReviewCopy = {
   quote: string;
   name: string;
-  role: string;
+  rating: number;
+  role?: string;
 };
 
 export type Messages = {
@@ -85,6 +86,10 @@ export type Messages = {
     statLabel: string;
     statValue: string;
   };
+  clients: {
+    kicker: string;
+    title: string;
+  };
   services: {
     kicker: string;
     title: string;
@@ -98,7 +103,7 @@ export type Messages = {
     googleBadge: string;
     starsAria: (rating: number) => string;
     viewMaps: string;
-    items: [ReviewCopy, ReviewCopy, ReviewCopy];
+    items: ReviewCopy[];
   };
   contact: {
     kicker: string;
@@ -111,6 +116,7 @@ export type Messages = {
     phoneLabel: string;
     phoneNumber: string;
     emailLabel: string;
+    emails: { address: string; description: string }[];
     formTitle: string;
     formDescription: string;
     ctaWhatsAppAlt: string;
@@ -134,6 +140,12 @@ export type Messages = {
       email: string;
       minLength: string;
     };
+    mapKicker: string;
+    mapTitle: string;
+    mapSubtitle: string;
+    mapCta: string;
+    mapAriaLabel: string;
+    pinSrLabel: string;
   };
   footer: {
     rights: (year: number) => string;
@@ -230,6 +242,10 @@ export const translations: Record<Locale, Messages> = {
       yearLabel: "Año de inicio",
       statLabel: "Años de experiencia",
       statValue: "+25",
+    },
+    clients: {
+      kicker: "Confían en nosotros",
+      title: "Empresas que ya operan con BPORT",
     },
     services: {
       kicker: "Servicios",
@@ -329,21 +345,9 @@ export const translations: Record<Locale, Messages> = {
       items: [
         {
           quote:
-            "Respuesta ágil y criterio claro en cada consulta. El seguimiento nos dio tranquilidad en un envío complejo.",
-          name: "María González",
-          role: "Importación retail",
-        },
-        {
-          quote:
-            "Profesionales y transparentes. Destaco el trato cercano sin perder el rigor documental.",
-          name: "Andrés Pereira",
-          role: "PyME industrial",
-        },
-        {
-          quote:
-            "Excelente coordinación con proveedores externos. Cumplieron plazos y expectativas al pie de la letra.",
-          name: "Lucía Fernández",
-          role: "E-commerce",
+            "Excelente experiencia. Ya importamos varias veces con BPORT Logistics y siempre recibimos un trato profesional, atento y claro. Javier nos ayudó a resolver dudas durante todo el proceso. Muy recomendable.",
+          name: "Gonzalo Ramos",
+          rating: 5,
         },
       ],
     },
@@ -360,6 +364,12 @@ export const translations: Record<Locale, Messages> = {
       phoneLabel: "Teléfono",
       phoneNumber: "+598 92 330925",
       emailLabel: "Email",
+      emails: [
+        { address: "info@bportlogistics.com", description: "Consultas generales" },
+        { address: "ventas@bportlogistics.com", description: "Nuevos negocios" },
+        { address: "cotizaciones@bportlogistics.com", description: "Tarifas y fletes" },
+        { address: "administracion@bportlogistics.com", description: "Facturación y pagos" },
+      ],
       formTitle: "Cotiza sin compromiso",
       formDescription:
         "Cuéntanos sobre tu operación y nos comunicaremos en menos de 24 horas.",
@@ -391,6 +401,12 @@ export const translations: Record<Locale, Messages> = {
         email: "Ingresa un email válido",
         minLength: "El mensaje debe ser más largo",
       },
+      mapKicker: "Visitanos",
+      mapTitle: "Encontranos en Montevideo",
+      mapSubtitle: "Estamos por la zona céntrica para que nos visites con mayor facilidad.",
+      mapCta: "Cómo llegar",
+      mapAriaLabel: "Mapa de ubicación de BPORT Logistics",
+      pinSrLabel: "Ver dirección exacta",
     },
     footer: {
       rights: (year) =>
@@ -490,6 +506,10 @@ export const translations: Record<Locale, Messages> = {
       statLabel: "Years of experience",
       statValue: "+25",
     },
+    clients: {
+      kicker: "Trusted by",
+      title: "Companies already operating with BPORT",
+    },
     services: {
       kicker: "Services",
       title: "Your operations, executed to perfection",
@@ -588,21 +608,9 @@ export const translations: Record<Locale, Messages> = {
       items: [
         {
           quote:
-            "Fast responses and clear judgment on every question. Tracking gave us peace of mind on a complex shipment.",
-          name: "María González",
-          role: "Retail imports",
-        },
-        {
-          quote:
-            "Professional and transparent. I value the close approach without sacrificing documentation rigor.",
-          name: "Andrés Pereira",
-          role: "Industrial SME",
-        },
-        {
-          quote:
-            "Excellent coordination with external vendors. They met every deadline and expectation.",
-          name: "Lucía Fernández",
-          role: "E-commerce",
+            "Excellent experience. We've imported with BPORT Logistics several times and always received professional, attentive and clear service. Javier helped us resolve our questions throughout the process. Highly recommended.",
+          name: "Gonzalo Ramos",
+          rating: 5,
         },
       ],
     },
@@ -615,10 +623,16 @@ export const translations: Record<Locale, Messages> = {
       subtitleAfterPhone:
         ". We respond with priority to commercial and operational inquiries.",
       officeLabel: "Office",
-      officeAddress: "Minas 1543/502 – Port area, Montevideo, Uruguay",
+      officeAddress: "Minas 1543/502 – Downtown, Montevideo, Uruguay",
       phoneLabel: "Phone",
       phoneNumber: "+598 92 330925",
       emailLabel: "Email",
+      emails: [
+        { address: "info@bportlogistics.com", description: "General inquiries" },
+        { address: "ventas@bportlogistics.com", description: "New business" },
+        { address: "cotizaciones@bportlogistics.com", description: "Rates & freight" },
+        { address: "administracion@bportlogistics.com", description: "Billing & payments" },
+      ],
       formTitle: "Quote with no commitment",
       formDescription:
         "Tell us about your operation and we'll get back to you within 24 hours.",
@@ -650,6 +664,12 @@ export const translations: Record<Locale, Messages> = {
         email: "Please enter a valid email",
         minLength: "Message must be longer",
       },
+      mapKicker: "Come visit",
+      mapTitle: "Come find us in Montevideo",
+      mapSubtitle: "We're in the downtown area so you can drop by with ease.",
+      mapCta: "Get directions",
+      mapAriaLabel: "BPORT Logistics location map",
+      pinSrLabel: "Show exact address",
     },
     footer: {
       rights: (year) => `© ${year} BPORT Logistics. All rights reserved.`,
@@ -747,6 +767,10 @@ export const translations: Record<Locale, Messages> = {
       yearLabel: "Ano de fundação",
       statLabel: "Anos de experiência",
       statValue: "+25",
+    },
+    clients: {
+      kicker: "Confiam em nós",
+      title: "Empresas que já operam com a BPORT",
     },
     services: {
       kicker: "Serviços",
@@ -846,21 +870,9 @@ export const translations: Record<Locale, Messages> = {
       items: [
         {
           quote:
-            "Respostas ágeis e critério claro em cada consulta. O acompanhamento nos deu tranquilidade em um envio complexo.",
-          name: "María González",
-          role: "Importação varejo",
-        },
-        {
-          quote:
-            "Profissionais e transparentes. Destaco o atendimento próximo sem abrir mão do rigor documental.",
-          name: "Andrés Pereira",
-          role: "PME industrial",
-        },
-        {
-          quote:
-            "Excelente coordenação com fornecedores externos. Cumpriram prazos e expectativas.",
-          name: "Lucía Fernández",
-          role: "E-commerce",
+            "Excelente experiência. Já importamos várias vezes com a BPORT Logistics e sempre recebemos um atendimento profissional, atencioso e claro. Javier nos ajudou a esclarecer dúvidas durante todo o processo. Muito recomendado.",
+          name: "Gonzalo Ramos",
+          rating: 5,
         },
       ],
     },
@@ -873,10 +885,16 @@ export const translations: Record<Locale, Messages> = {
       subtitleAfterPhone:
         ". Priorizamos consultas comerciais e operacionais.",
       officeLabel: "Escritório",
-      officeAddress: "Minas 1543/502 – Zona Portuária, Montevidéu, Uruguai",
+      officeAddress: "Minas 1543/502 – Centro, Montevidéu, Uruguai",
       phoneLabel: "Telefone",
       phoneNumber: "+598 92 330925",
       emailLabel: "E-mail",
+      emails: [
+        { address: "info@bportlogistics.com", description: "Consultas gerais" },
+        { address: "ventas@bportlogistics.com", description: "Novos negócios" },
+        { address: "cotizaciones@bportlogistics.com", description: "Tarifas e fretes" },
+        { address: "administracion@bportlogistics.com", description: "Faturamento e pagamentos" },
+      ],
       formTitle: "Cotar sem compromisso",
       formDescription:
         "Conte-nos sobre sua operação e retornaremos em menos de 24 horas.",
@@ -908,6 +926,12 @@ export const translations: Record<Locale, Messages> = {
         email: "Insira um e-mail válido",
         minLength: "A mensagem deve ser mais longa",
       },
+      mapKicker: "Venha nos visitar",
+      mapTitle: "Venha nos encontrar em Montevidéu",
+      mapSubtitle: "Estamos na zona central para você nos visitar com mais facilidade.",
+      mapCta: "Como chegar",
+      mapAriaLabel: "Mapa de localização da BPORT Logistics",
+      pinSrLabel: "Ver endereço exato",
     },
     footer: {
       rights: (year) =>
