@@ -151,6 +151,9 @@ export type Messages = {
     rights: (year: number) => string;
     location: string;
     tagline: string;
+    hoursLabel: string;
+    hoursValue: string;
+    backToTop: string;
   };
   fab: {
     label: string;
@@ -413,6 +416,9 @@ export const translations: Record<Locale, Messages> = {
         `© ${year} BPORT Logistics. Todos los derechos reservados.`,
       location: "Montevideo, Uruguay",
       tagline: "Conectamos tu carga con el mundo.",
+      hoursLabel: "Horario",
+      hoursValue: "Lunes a viernes, 9:00 a 18:00",
+      backToTop: "Volver arriba",
     },
     fab: {
       label: "Consultar por WhatsApp",
@@ -675,6 +681,9 @@ export const translations: Record<Locale, Messages> = {
       rights: (year) => `© ${year} BPORT Logistics. All rights reserved.`,
       location: "Montevideo, Uruguay",
       tagline: "Connecting your cargo to the world.",
+      hoursLabel: "Hours",
+      hoursValue: "Monday to Friday, 9:00 AM to 6:00 PM",
+      backToTop: "Back to top",
     },
     fab: {
       label: "Chat on WhatsApp",
@@ -938,6 +947,9 @@ export const translations: Record<Locale, Messages> = {
         `© ${year} BPORT Logistics. Todos os direitos reservados.`,
       location: "Montevidéu, Uruguai",
       tagline: "Conectando sua carga ao mundo.",
+      hoursLabel: "Horário",
+      hoursValue: "Segunda a sexta, 9h às 18h",
+      backToTop: "Voltar ao topo",
     },
     fab: {
       label: "Falar no WhatsApp",

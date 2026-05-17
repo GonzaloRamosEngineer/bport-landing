@@ -22,6 +22,9 @@ import {
   Rocket,
   ShoppingCart,
   Lock,
+  Phone,
+  Clock,
+  MessageCircle,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -32,7 +35,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MotionItem, MotionSection } from "@/components/landing/motion";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { LanguageProvider, useLanguage } from "@/components/i18n/language-context";
-import { getWhatsAppUrl, GOOGLE_MAPS_EMBED_URL, GOOGLE_MAPS_DIRECTIONS_URL, GOOGLE_MAPS_PROFILE_URL } from "@/lib/site";
+import { getWhatsAppUrl, GOOGLE_MAPS_EMBED_URL, GOOGLE_MAPS_DIRECTIONS_URL, GOOGLE_MAPS_PROFILE_URL, CONTACT, SOCIAL_LINKS } from "@/lib/site";
 import { ReactLenis } from "lenis/react";
 import { HeroSection } from "@/components/landing/sections/hero";
 import { Header } from "@/components/landing/sections/header";
@@ -884,18 +887,36 @@ function ContactMapBand() {
 
 /* ─── Footer ──────────────────────────────────────────────────────── */
 function Footer() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const year = new Date().getFullYear();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const reducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
   };
 
   return (
-    <footer className="bg-[#0d0d12] text-white pt-20 pb-24 md:pb-28 px-4 relative overflow-hidden border-t border-white/10">
-      
-      {/* Círculo decorativo gigante de fondo */}
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+    <footer className="bg-gradient-to-b from-[#0b1424] via-[#080f1a] to-[#05080f] text-white pt-20 pb-24 md:pb-28 px-4 relative overflow-hidden">
+
+      {/* Hairline superior con gradiente corporativo */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+      />
+
+      {/* Glow primary top-right */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none"
+      />
+
+      {/* Glow accent bottom-left (eco teal corporativo) */}
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-32 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none"
+      />
 
       <div className="mx-auto max-w-6xl relative z-10">
         
@@ -916,15 +937,33 @@ function Footer() {
             
             {/* Redes Sociales */}
             <div className="flex items-center space-x-3 pt-2">
-              <a href="https://www.instagram.com/bportlogistics/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white text-white/40 transition-all duration-300" aria-label="Instagram">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white text-white/40 transition-all duration-300" aria-label="LinkedIn">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white text-white/40 transition-all duration-300" aria-label="Facebook">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              </a>
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white text-white/70 transition-all duration-300"
+                  aria-label={social.ariaLabel}
+                >
+                  {social.name === "Instagram" && (
+                    <svg
+                      className="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                  )}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -938,10 +977,10 @@ function Footer() {
                 ["#resenas", t.nav.reviews],
                 ["#contacto", t.nav.contact],
               ].map(([href, label]) => (
-                <a 
+                <a
                   key={href}
-                  href={href} 
-                  className="text-white/50 hover:text-white text-sm transition-colors group flex items-center gap-2"
+                  href={href}
+                  className="text-white/65 hover:text-white text-sm transition-colors group flex items-center gap-2"
                 >
                   <span className="w-0 group-hover:w-2 h-0.5 bg-primary transition-all duration-300 rounded-full"></span>
                   {label}
@@ -953,24 +992,50 @@ function Footer() {
           {/* Columna 3: Contacto Directo */}
           <div className="space-y-4">
             <h3 className="font-bold text-white text-lg mb-4">{t.nav.contact}</h3>
-            <ul className="space-y-4 text-sm text-white/60">
+            <ul className="space-y-3 text-sm text-white/70">
               <li className="flex items-start space-x-3">
-                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
+                <MapPin size={18} className="text-primary mt-0.5 shrink-0" aria-hidden="true" />
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Minas 1543/502, Montevideo, Uruguay')}`}
+                  href={GOOGLE_MAPS_PROFILE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  Minas 1543/502<br />
-                  Montevideo, Uruguay
+                  {CONTACT.address.line1}<br />
+                  {CONTACT.address.line2}
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <Mail size={18} className="text-primary shrink-0" />
-                <a href="mailto:info@bportlogistics.com" className="hover:text-white transition-colors">
-                  info@bportlogistics.com
+                <Phone size={18} className="text-primary shrink-0" aria-hidden="true" />
+                <a href={CONTACT.phoneHref} className="hover:text-white transition-colors">
+                  {CONTACT.phoneDisplay}
                 </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <MessageCircle size={18} className="text-primary shrink-0" aria-hidden="true" />
+                <a
+                  href={getWhatsAppUrl(locale)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  WhatsApp
+                </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Mail size={18} className="text-primary shrink-0" aria-hidden="true" />
+                <a href={`mailto:${CONTACT.email}`} className="hover:text-white transition-colors">
+                  {CONTACT.email}
+                </a>
+              </li>
+              <li className="flex items-start space-x-3">
+                <Clock size={18} className="text-primary mt-0.5 shrink-0" aria-hidden="true" />
+                <span>
+                  <span className="block text-primary/80 text-xs uppercase tracking-wider">
+                    {t.footer.hoursLabel}
+                  </span>
+                  {t.footer.hoursValue}
+                </span>
               </li>
             </ul>
           </div>
@@ -980,7 +1045,7 @@ function Footer() {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
           
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <p className="text-white/40 text-xs">
+            <p className="text-white/60 text-xs">
               {t.footer.rights(year)}
             </p>
             
@@ -1016,13 +1081,15 @@ function Footer() {
                 <Lock size={15} strokeWidth={1.5} />
               </a>
 
-              <Button 
+              <Button
                 onClick={scrollToTop}
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white/5 border border-white/10 text-white/60 hover:bg-primary hover:text-white hover:border-primary transition-all shadow-lg"
+                aria-label={t.footer.backToTop}
+                title={t.footer.backToTop}
+                className="rounded-full bg-primary/10 border border-primary/20 text-white/70 hover:bg-primary hover:text-white hover:border-primary transition-all shadow-lg"
               >
-                <ArrowUp size={18} />
+                <ArrowUp size={18} aria-hidden="true" />
               </Button>
           </div>
         </div>

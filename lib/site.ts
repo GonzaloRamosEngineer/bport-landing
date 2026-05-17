@@ -23,7 +23,37 @@ export const GOOGLE_MAPS_DIRECTIONS_URL =
 
 /** Shortlink al perfil/listing de BPORT en Google Maps (no "cómo llegar"). */
 export const GOOGLE_MAPS_PROFILE_URL =
-  "https://maps.app.goo.gl/5d2K1NfQ7CUBeyvN7";
+  "https://maps.app.goo.gl/cFBLhPsmpRLLTE1U6";
+
+/**
+ * Datos de contacto canónicos consumidos por el Footer.
+ * Contact (formulario) mantiene su propia copia i18n con sufijos localizados.
+ */
+export const CONTACT = {
+  email: "info@bportlogistics.com",
+  phoneDisplay: "+598 92 330 925",
+  phoneHref: "tel:+59892330925",
+  address: {
+    line1: "Minas 1543/502",
+    line2: "Montevideo, Uruguay",
+    mapsQuery: "Minas 1543/502, Montevideo, Uruguay",
+  },
+} as const;
+
+export type SocialLink = {
+  name: string;
+  href: string;
+  ariaLabel: string;
+};
+
+/** Solo perfiles con URL oficial confirmada. No inventar. */
+export const SOCIAL_LINKS: SocialLink[] = [
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/bportlogistics/",
+    ariaLabel: "Instagram BPORT Logistics",
+  },
+];
 
 export type ClientLogo = {
   name: string;
