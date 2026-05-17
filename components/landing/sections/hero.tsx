@@ -75,7 +75,7 @@ export function HeroSection() {
         className="pointer-events-none absolute left-1/2 top-1/2 z-[15] h-[55vh] w-[70vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(47,143,131,0.28)_0%,transparent_60%)] opacity-80 blur-3xl"
       />
 
-      <div className="relative z-20 mx-auto w-full max-w-4xl px-4 py-24 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+      <div className="relative z-20 mx-auto w-full max-w-4xl px-4 pt-36 pb-24 sm:px-6 sm:py-24 lg:px-8 flex flex-col items-center text-center">
         <motion.div
           variants={variants.container}
           initial="hidden"
