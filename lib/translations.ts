@@ -133,6 +133,9 @@ export type Messages = {
     serviceOptions: Record<string, string>;
     labelMessage: string;
     placeholderMessage: string;
+    privacyNoticeBefore: string;
+    privacyNoticeLink: string;
+    privacyNoticeAfter: string;
     submit: string;
     successMessage: string;
     errors: {
@@ -154,6 +157,8 @@ export type Messages = {
     hoursLabel: string;
     hoursValue: string;
     backToTop: string;
+    privacyPolicy: string;
+    terms: string;
   };
   fab: {
     label: string;
@@ -397,6 +402,9 @@ export const translations: Record<Locale, Messages> = {
       labelMessage: "Mensaje",
       placeholderMessage:
         "Origen, destino y tipo de carga (si aplica).",
+      privacyNoticeBefore: "Al enviar este formulario aceptás nuestra ",
+      privacyNoticeLink: "Política de privacidad",
+      privacyNoticeAfter: ".",
       submit: "Enviar consulta",
       successMessage: "¡Consulta enviada! Nos pondremos en contacto a la brevedad.",
       errors: {
@@ -419,6 +427,8 @@ export const translations: Record<Locale, Messages> = {
       hoursLabel: "Horario",
       hoursValue: "Lunes a viernes, 9:00 a 18:00",
       backToTop: "Volver arriba",
+      privacyPolicy: "Política de privacidad",
+      terms: "Términos y condiciones",
     },
     fab: {
       label: "Consultar por WhatsApp",
@@ -663,6 +673,9 @@ export const translations: Record<Locale, Messages> = {
       labelMessage: "Message",
       placeholderMessage:
         "Origin, destination, and cargo type (if applicable).",
+      privacyNoticeBefore: "By submitting this form, you accept our ",
+      privacyNoticeLink: "Privacy policy (ES)",
+      privacyNoticeAfter: ".",
       submit: "Send inquiry",
       successMessage: "Inquiry sent! We'll get back to you shortly.",
       errors: {
@@ -684,6 +697,8 @@ export const translations: Record<Locale, Messages> = {
       hoursLabel: "Hours",
       hoursValue: "Monday to Friday, 9:00 AM to 6:00 PM",
       backToTop: "Back to top",
+      privacyPolicy: "Privacy policy (ES)",
+      terms: "Terms and conditions (ES)",
     },
     fab: {
       label: "Chat on WhatsApp",
@@ -928,6 +943,9 @@ export const translations: Record<Locale, Messages> = {
       labelMessage: "Mensagem",
       placeholderMessage:
         "Origem, destino e tipo de carga (se aplicável).",
+      privacyNoticeBefore: "Ao enviar este formulário, você aceita nossa ",
+      privacyNoticeLink: "Política de privacidade (ES)",
+      privacyNoticeAfter: ".",
       submit: "Enviar consulta",
       successMessage: "Consulta enviada! Entraremos em contato em breve.",
       errors: {
@@ -950,6 +968,8 @@ export const translations: Record<Locale, Messages> = {
       hoursLabel: "Horário",
       hoursValue: "Segunda a sexta, 9h às 18h",
       backToTop: "Voltar ao topo",
+      privacyPolicy: "Política de privacidade (ES)",
+      terms: "Termos e condições (ES)",
     },
     fab: {
       label: "Falar no WhatsApp",

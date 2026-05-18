@@ -4,6 +4,19 @@ import { Resend } from 'resend';
 // Initialize Resend with the API key from environment variables
 const resend = new Resend(process.env.RESEND_API_KEY || 're_xxxxxxxxx');
 
+function escapeHtml(value: unknown): string {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function sanitizeHeader(value: unknown): string {
+  return String(value ?? '').replace(/[\r\n]+/g, ' ').trim();
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -17,6 +30,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const safeName = escapeHtml(name);
+    const safeCompany = escapeHtml(company || 'No especificada');
+    const safeEmail = escapeHtml(email);
+    const safePhone = escapeHtml(phone || 'No especificado');
+    const safeService = escapeHtml(service || 'No especificado');
+    const safeMessage = escapeHtml(message);
+    const subjectName = sanitizeHeader(name) || 'Nueva consulta';
+
     // Construct the email content
     const htmlContent = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
@@ -26,29 +47,29 @@ export async function POST(request: Request) {
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Nombre y Apellido:</td>
-            <td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">${safeName}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 150px;">Empresa:</td>
-            <td style="padding: 10px; border-bottom: 1px solid #eee;">${company || 'No especificada'}</td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">${safeCompany}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
-            <td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="mailto:${email}">${email}</a></td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;"><a href="mailto:${safeEmail}">${safeEmail}</a></td>
           </tr>
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Teléfono / WhatsApp:</td>
-            <td style="padding: 10px; border-bottom: 1px solid #eee;">${phone || 'No especificado'}</td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">${safePhone}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;">Servicio de interés:</td>
-            <td style="padding: 10px; border-bottom: 1px solid #eee;">${service || 'No especificado'}</td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">${safeService}</td>
           </tr>
         </table>
         
         <div style="margin-top: 20px; padding: 15px; background-color: #f8fafc; border-radius: 8px; border-left: 4px solid #2563EB;">
           <h3 style="margin-top: 0; font-size: 16px;">Mensaje:</h3>
-          <p style="white-space: pre-wrap; margin-bottom: 0;">${message}</p>
+          <p style="white-space: pre-wrap; margin-bottom: 0;">${safeMessage}</p>
         </div>
         
         <p style="font-size: 12px; color: #888; margin-top: 30px;">
@@ -62,7 +83,7 @@ export async function POST(request: Request) {
       from: 'BPORT Web <onboarding@resend.dev>', // You can change this to a verified domain like 'contacto@bportlogistics.com' if configured in Resend
       to: 'info@bportlogistics.com',
       replyTo: email,
-      subject: `Nueva consulta de ${name} - BPORT Logistics`,
+      subject: `Nueva consulta de ${subjectName} - BPORT Logistics`,
       html: htmlContent,
     });
 

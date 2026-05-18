@@ -724,6 +724,17 @@ function ContactSection() {
                     <p className="text-sm text-red-500 font-medium">{errorMsg}</p>
                   )}
 
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    {t.contact.privacyNoticeBefore}
+                    <a
+                      href="/politica-de-privacidad"
+                      className="font-medium text-primary underline-offset-4 hover:underline"
+                    >
+                      {t.contact.privacyNoticeLink}
+                    </a>
+                    {t.contact.privacyNoticeAfter}
+                  </p>
+
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
@@ -1048,6 +1059,24 @@ function Footer() {
             <p className="text-white/60 text-xs">
               {t.footer.rights(year)}
             </p>
+
+            <nav
+              aria-label="Legal"
+              className="flex flex-wrap items-center justify-center gap-4 text-xs text-white/50"
+            >
+              <a
+                href="/politica-de-privacidad"
+                className="transition-colors hover:text-white"
+              >
+                {t.footer.privacyPolicy}
+              </a>
+              <a
+                href="/terminos-y-condiciones"
+                className="transition-colors hover:text-white"
+              >
+                {t.footer.terms}
+              </a>
+            </nav>
             
             {/* --- FIRMA DIGITAL MATCH GLOBAL --- */}
             <a 

@@ -3,15 +3,26 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://bportlogistics.com';
 
-  // In an MVP, we only have the home page.
-  // When you add more routes (like /about, /services, /blog),
-  // you can simply append them to this array.
+  const lastModified = new Date();
+
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/politica-de-privacidad`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terminos-y-condiciones`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
 }
