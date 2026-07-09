@@ -44,6 +44,7 @@ export type Messages = {
     whatsapp: string;
     process: string;
     forWhom: string;
+    tracking: string;
   };
   trust: {
     kicker: string;
@@ -159,6 +160,7 @@ export type Messages = {
     backToTop: string;
     privacyPolicy: string;
     terms: string;
+    trackingPortal: string;
   };
   fab: {
     label: string;
@@ -186,6 +188,7 @@ export const translations: Record<Locale, Messages> = {
       whatsapp: "WhatsApp",
       process: "Proceso",
       forWhom: "Para quién",
+      tracking: "Seguimiento",
     },
     trust: {
       kicker: "Confianza",
@@ -429,6 +432,7 @@ export const translations: Record<Locale, Messages> = {
       backToTop: "Volver arriba",
       privacyPolicy: "Política de privacidad",
       terms: "Términos y condiciones",
+      trackingPortal: "Portal de seguimiento",
     },
     fab: {
       label: "Consultar por WhatsApp",
@@ -457,6 +461,7 @@ export const translations: Record<Locale, Messages> = {
       whatsapp: "WhatsApp",
       process: "Process",
       forWhom: "For whom",
+      tracking: "Tracking",
     },
     trust: {
       kicker: "Trust",
@@ -699,6 +704,7 @@ export const translations: Record<Locale, Messages> = {
       backToTop: "Back to top",
       privacyPolicy: "Privacy policy (ES)",
       terms: "Terms and conditions (ES)",
+      trackingPortal: "Tracking portal (ES)",
     },
     fab: {
       label: "Chat on WhatsApp",
@@ -727,6 +733,7 @@ export const translations: Record<Locale, Messages> = {
       whatsapp: "WhatsApp",
       process: "Processo",
       forWhom: "Para quem",
+      tracking: "Rastreamento",
     },
     trust: {
       kicker: "Confiança",
@@ -970,6 +977,7 @@ export const translations: Record<Locale, Messages> = {
       backToTop: "Voltar ao topo",
       privacyPolicy: "Política de privacidade (ES)",
       terms: "Termos e condições (ES)",
+      trackingPortal: "Portal de rastreamento (ES)",
     },
     fab: {
       label: "Falar no WhatsApp",

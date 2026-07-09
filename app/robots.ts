@@ -8,6 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        // Demo del portal con datos ficticios: fuera de los índices hasta la fase real.
+        disallow: ["/portal", "/portal/admin"],
       },
       {
         userAgent: "facebookexternalhit",

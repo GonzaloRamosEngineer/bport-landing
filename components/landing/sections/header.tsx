@@ -59,6 +59,7 @@ export function Header() {
                 ["#paraquien", t.nav.forWhom],
                 ["#resenas", t.nav.reviews],
                 ["#contacto", t.nav.contact],
+                ["/portal", t.nav.tracking],
               ].map(([href, label]) => (
                 <a
                   key={href}
@@ -106,6 +107,7 @@ export function Header() {
             ["#paraquien", t.nav.forWhom],
             ["#resenas", t.nav.reviews],
             ["#contacto", t.nav.contact],
+            ["/portal", t.nav.tracking],
           ].map(([href, label]) => (
             <a
               key={href}
