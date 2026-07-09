@@ -1,0 +1,111 @@
+/**
+ * Textos del portal (demo), solo español por ahora.
+ * Estructura espejo de `Messages` en lib/translations.ts: si la fase real
+ * pide EN/PT, este objeto se muda a translations.ts sin tocar componentes.
+ */
+export const portalCopy = {
+  shell: {
+    demoBadge: "Demo · datos de ejemplo",
+    backToSite: "Volver al sitio",
+    adminAccess: "Acceso interno",
+    footerNote:
+      "Demostración del portal de seguimiento de BPORT Logistics. Los datos son ficticios.",
+  },
+  tracking: {
+    eyebrow: "Portal para clientes",
+    title: "Seguí tu carga en tiempo real",
+    subtitle:
+      "Ingresá el código de tu trámite y mirá el estado, los hitos y los próximos pasos de tu operación, sin escribir por WhatsApp.",
+    searchPlaceholder: "Ej.: BP-1234",
+    searchLabel: "Código de trámite",
+    searchButton: "Consultar",
+    tryWith: "Probá con:",
+    notFoundTitle: "No encontramos ese trámite",
+    notFoundBody:
+      "Verificá el código (formato BP-1234) o contactá a BPORT y te lo reenviamos.",
+    statusLabel: "Estado actual",
+    etaLabel: "ETA",
+    referenceLabel: "Referencia",
+    updatedLabel: "Última novedad",
+    routeLabel: "Ruta",
+    timelineTitle: "Historial de la operación",
+    documentsTitle: "Documentos",
+    documentPending: "Pendiente",
+    nextStepTitle: "Próximo paso",
+    whatsappCta: "Consultar a BPORT",
+    whatsappMessage: (code: string) =>
+      `Hola BPORT, les consulto por mi operación ${code}.`,
+  },
+  admin: {
+    eyebrow: "Panel interno",
+    loginTitle: "Acceso al panel de operaciones",
+    loginSubtitle:
+      "Demo: ingresá con cualquier usuario y contraseña, o entrá directo.",
+    emailLabel: "Email",
+    emailPlaceholder: "javier@bportlogistics.com",
+    passwordLabel: "Contraseña",
+    loginButton: "Ingresar",
+    loginAsDemo: "Entrar como Javier (demo)",
+    logout: "Salir",
+    dashboardTitle: "Control de operaciones",
+    dashboardSubtitle:
+      "Todas tus operaciones en un solo lugar: actualizás el hito y el cliente lo ve al instante en el portal.",
+    kpiActive: "Operaciones activas",
+    kpiInCustoms: "En aduana",
+    kpiPendingDocs: "Docs pendientes",
+    kpiEtaSoon: "ETA en 7 días",
+    tableTitle: "Operaciones",
+    tableCode: "Trámite",
+    tableClient: "Cliente",
+    tableStatus: "Estado",
+    tableEta: "ETA",
+    tableAction: "Acción",
+    edit: "Actualizar",
+    newOperation: "Nueva operación",
+    resetDemo: "Restablecer demo",
+    resetDone: "Demo restablecida con los datos originales.",
+    editorTitle: (code: string) => `Actualizar ${code}`,
+    editorStatus: "Nuevo estado",
+    editorNote: "Nota visible para el cliente",
+    editorNotePlaceholder:
+      "Ej.: El buque arribó al puerto de Montevideo. Iniciamos el despacho.",
+    editorNextStep: "Próximo paso",
+    editorNextStepPlaceholder: "Ej.: Presentar DUA ante aduana.",
+    editorSave: "Guardar actualización",
+    editorSaved: (code: string) =>
+      `${code} actualizado. El cliente ya lo ve en el portal.`,
+    viewAsClient: "Ver como cliente",
+  },
+  newOperation: {
+    title: "Nueva operación",
+    autofillTitle: "Smart Autofill con IA",
+    autofillSubtitle:
+      "Pegá el mensaje del proveedor (WhatsApp o email) y la IA completa los campos.",
+    autofillPlaceholder:
+      "Pegá acá el texto informal con los datos de la carga…",
+    autofillButton: "Autocompletar con IA",
+    autofillProcessing: "Procesando…",
+    autofillDone: "Campos completados a partir del texto.",
+    autofillEmpty: "Pegá un texto o elegí un ejemplo primero.",
+    exampleLabel: "Ejemplos:",
+    formTitle: "Datos de la operación",
+    fieldCode: "Código de trámite",
+    fieldClient: "Cliente",
+    fieldClientPlaceholder: "Ej.: Importadora Norte S.A.",
+    fieldType: "Tipo de operación",
+    fieldOrigin: "Origen",
+    fieldOriginPlaceholder: "Ej.: Ningbo, China",
+    fieldDestination: "Destino",
+    fieldDestinationPlaceholder: "Ej.: Montevideo, Uruguay",
+    fieldReference: "Contenedor / AWB / Booking",
+    fieldReferencePlaceholder: "Ej.: MSCU7654321",
+    fieldEta: "ETA / arribo estimado",
+    fieldStatus: "Estado inicial",
+    fieldNextStep: "Próximo paso",
+    fieldNextStepPlaceholder: "Ej.: Confirmar embarque con la naviera.",
+    create: "Crear operación",
+    created: (code: string) => `Operación ${code} creada.`,
+    cancel: "Cancelar",
+    missingRequired: "Completá cliente, origen y destino para crear la operación.",
+  },
+} as const;

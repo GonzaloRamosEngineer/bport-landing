@@ -987,6 +987,7 @@ function Footer() {
                 ["#servicios", t.nav.services],
                 ["#resenas", t.nav.reviews],
                 ["#contacto", t.nav.contact],
+                ["/portal", t.footer.trackingPortal],
               ].map(([href, label]) => (
                 <a
                   key={href}
